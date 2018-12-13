@@ -1,25 +1,49 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Header, Search} from './Classes/Header';
+import {Footer} from './Classes/Footer';
+import {MainPage} from './Classes/MainPage';
+import {SignInRegister} from './Classes/SignInRegister'
+
+import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
+
+
+//import "react-responsive-carousel/lib/styles/carousel.min.css";
+//import { Carousel } from 'react-responsive-carousel';
 
 class App extends Component {
+  state = {
+    userInfo:{
+      name: "",
+      email: "",
+      token: ""
+    }
+  }
+  handleData = (obj) =>{
+    this.setState({
+        userInfo : {
+          name: obj.name,
+          email: obj.email
+        }
+    });
+    localStorage["name"] = obj.name;
+    localStorage["email"] = obj.email;
+    localStorage["token"] = obj.token;
+}
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <div id="preloader">
+          <div className="dorne-load"></div>
+        </div>
+        <Header/>
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route path="/login" render={props => <SignInRegister handleData={this.handleData} />} />
+        </Switch>
+        <Footer/>
       </div>
     );
   }
