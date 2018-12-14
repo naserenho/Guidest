@@ -11,7 +11,8 @@ export class Header extends Component{
             <div className="row h-100">
                 <div className="col-12 h-100">
                     <nav className="h-100 navbar navbar-expand-lg">
-                        <a className="navbar-brand" href="index.html"><img src="img/bg-img/logo.png" width={'200px'} alt=""/></a>
+                    <Link to={`/`}><a className="navbar-brand"><img src="img/bg-img/logo.png" width={'170px'} alt=""/>
+                        </a></Link>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation"><span className="fa fa-bars"></span></button>
                         
                         <div className="collapse navbar-collapse" id="dorneNav">
@@ -20,13 +21,14 @@ export class Header extends Component{
                             </ul>
                             <Search/>
                             {/* <!-- Signin btn --> */}
-                            <div className="dorne-signin-btn">
-                                <a href="#">+ Add Listings </a>
-                            </div>
+                             {/* <div className="dorne-signin-btn">
+                                <a href="#">+ Add Listings 
+                                </a>
+                            </div>  */}
                             
-                            <div className="dorne-add-listings-btn"  >
+                            <div className="dorne-add-listings-btn mx-2"  >
                                 <a href="#" className="btn dorne-btn" >
-                                <Link to={`/login`}>Sign in  or Register</Link>
+                                <Link style={{color:"white"}} to={`/login`}>Sign in  or Register</Link>
                                 </a>
                             </div>
                         </div>

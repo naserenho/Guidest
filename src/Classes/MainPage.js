@@ -14,21 +14,21 @@ export class MainPage extends Component{
           <Tabs>
           <TabList>
           <Tab>
-          <div><i className="fa fa-hotel fa-3x"></i></div>
-            Hotels
+          <div><i className="fa fa-hotel fa-2x"></i></div>
+           <b> Hotels</b>
             </Tab>
             <Tab>
-            <div><i className="fas fa-utensils fa-3x"></i></div>
+            <div><i className="fas fa-utensils fa-2x"></i></div>
 
-              Restaurants
+              <b>Restaurants</b>
               
             </Tab>
             <Tab>
-            <div><i className="fa fa-spa fa-3x"></i></div>
-      Spa</Tab>
+            <div><i className="fa fa-spa fa-2x"></i></div>
+            <b> Spa</b></Tab>
             <Tab>
-            <div><i className="fa fa-film fa-3x"></i></div>
-      Cinema</Tab>
+            <div><i className="fa fa-film fa-2x"></i></div>
+            <b>Cinema</b></Tab>
           </TabList>
 
           <TabPanel>

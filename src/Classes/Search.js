@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link } from 'react-router-dom';
 
 
 export class Search  extends Component{
@@ -19,9 +20,10 @@ export class Search  extends Component{
         <option value="4">Melbourne</option>
         <option value="5">London</option>
     </select>
-    <Catagories/>
+    <Catagories value={this.state.value}/>
    
-    <button type="submit" className="btn dorne-btn"><i className="fa fa-search pr-2" aria-hidden="true"></i> Search</button>
+    <Link to={`/listing`}>
+<button type="submit" className="btn dorne-btn"><i className="fa fa-search pr-2" aria-hidden="true"></i> Search</button></Link>
 </form>
     }
 }

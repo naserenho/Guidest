@@ -5,6 +5,7 @@ import {Header, Search} from './Classes/Header';
 import {Footer} from './Classes/Footer';
 import {MainPage} from './Classes/MainPage';
 import {SignInRegister} from './Classes/SignInRegister'
+import {Listing} from './Classes/Listing'
 
 import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
 class App extends Component {
   state = {
+
     userInfo:{
       name: "",
       email: "",
@@ -39,9 +41,12 @@ class App extends Component {
           <div className="dorne-load"></div>
         </div>
         <Header/>
+
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route path="/login" render={props => <SignInRegister handleData={this.handleData} />} />
+          <Route path="/listing" render={props => <Listing />} />
+
         </Switch>
         <Footer/>
       </div>

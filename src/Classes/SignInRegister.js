@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 
 export class SignInRegister extends Component {
     state = {
-        email: "",
+        loginemail: "",
         name: "",
-        password: "",
+        loginpassword: "",
         message: "",
         token: "",
         status: false,
-        showResult: false
+        loginstatus: false,
+        showResult: false,
+        showResultLogin: false
     }
     
     login = (event) => {
@@ -18,29 +20,29 @@ export class SignInRegister extends Component {
             'Content-Type': 'application/json'
         }),
         body: JSON.stringify({
-            email: this.state.email,
-            password: this.state.password
+            email: this.state.loginemail,
+            password: this.state.loginpassword
         })
         }).then((res) => {
             res.json().then(r => {
                 if(r.token !== undefined){
                     this.setState({
-                        token: r.token,
-                        name: r.name,                
-                        status: true,
-                        showResult: true
+                        token: r.token,    
+                        loginname: r.name,        
+                        loginstatus: true,
+                        showResultLogin: true
                     });
                     this.props.handleData(this.state);
                 }
                 else
                     this.setState({
-                        status: false,
-                        showResult: true
+                        loginstatus: false,
+                        showResultLogin: true
                     });
             }).catch(err =>{
                 this.setState({
-                    status: false,
-                    showResult: true
+                    loginstatus: false,
+                    showResultLogin: true
                 });
             });
         });
@@ -95,28 +97,52 @@ export class SignInRegister extends Component {
     }
     render() {
         return <div>
-            <div>
+          <div>
+            <section className="bg-overlay" style={{paddingTop:"130px", backgroundImage:"url(img/bg-img/hero-1.jpg)",  backgroundSize: "cover", backgroundPosition: "center"}}> 
+                
+         <div className="row m-0 align-items-center justify-content-center" >
+           
+            <div className="col-12 col-md-5">
+            <div id="login-form" className="px-5">
+            <p>Existing User</p>
+                <form onSubmit={this.login}>
+              
+                    <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
+                    
+                  
+                    <input className="input-control mb-2" type="password" placeholder="Password" name="loginpassword" value={this.state.loginpassword} onChange={this.handleChange} />
+                   
+                
+
+                    <input className="input-control mb-2" type="submit" value="Login" style={{backgroundColor:"#3c0ea5", color:"white",border:0}}/>
+       
+                </form>
+                {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : "" }
+            </div>
+            <div id="registration-form" className="px-5 mt-3" >
+            <p className>New User?</p>
+           
                 <form onSubmit={this.register}>
-                    <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
+                    <input className="input-control mb-2" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
                     <br />
-                    <input type="text" name="name" placeholder="Username" value={this.state.name} onChange={this.handleChange} />
+                    <input className="input-control mb-2" type="text" name="name" placeholder="Username" value={this.state.name} onChange={this.handleChange} />
                     <br />
-                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+                    <input className="input-control mb-2" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
                     <br />
-                    <input type="submit" value="Register" />
+                    <input className="input-control mb-2" type="submit" value="Register"  style={{backgroundColor:"#da4444", color:"white",border:0}}/>
                 </form>
                 {this.state.showResult ? <RegisterInfo status={this.state.status} name={this.state.name} message={this.state.message} /> : "" }
                 <br/><br/>
             </div>
-            <div>
-                <form onSubmit={this.login}>
-                    <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    <input type="submit" value="Login" />
-                </form>
-                {this.state.showResult ? <Info status={this.state.status} name={this.state.name} token={this.state.token} /> : "" }
             </div>
+            
+            </div>
+            </section>
+            
+           </div>
+        
         </div>
+      
     }
 }
 
