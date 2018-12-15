@@ -1,7 +1,25 @@
 import React, {Component} from 'react';
 
 export class Featured extends Component {
-
+    state ={
+        places: []
+    }
+    componentDidMount(){
+        fetch(`https://guidest.herokuapp.com/places/Cat/${this.props.cat}`,{
+        method: 'get',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+        }).then((res) => {
+            res.json().then(r => {
+                this.setState({
+                    places:r.places.slice(0,4)
+                });
+            }).catch(err =>{
+    
+            });
+        });
+    }
     render(){
 
         return <section className="dorne-features-restaurant-area bg-default">
@@ -9,17 +27,19 @@ export class Featured extends Component {
             <div className="row">
                 <div className="col-12">
                     <div className="section-heading text-center">
-                        <h4>Featured Restaurants</h4>
+                        <h4>Featured {this.props.cat}</h4>
                     </div>
                 </div>
             </div>
 
             <div className="row">
-            
+            {this.state.places.map((place,i)=>{
+                return  <SingleFeature  rate="9.8" img="img/core-img/map.png" title={place.name} name={place.city} />
+            })}
+        {/* <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
         <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
         <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
-        <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
-        <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
+        <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" /> */}
 
                
             </div>

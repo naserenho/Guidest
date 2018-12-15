@@ -6,7 +6,7 @@ export class Listing extends Component {
       places: []
   }
   componentDidMount(){
-    fetch('https://guidest.herokuapp.com/places/get',{
+    fetch(`https://guidest.herokuapp.com/places/Cat/${this.state.category}`,{
     method: 'get',
     headers: new Headers({
         'Content-Type': 'application/json'

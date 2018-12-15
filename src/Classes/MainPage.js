@@ -13,36 +13,34 @@ export class MainPage extends Component{
           
           <Tabs>
           <TabList>
-          <Tab>
-          <div><i className="fa fa-hotel fa-2x"></i></div>
-           <b> Hotels</b>
+            <Tab>
+                <div><i className="fa fa-hotel fa-2x"></i></div>
+                <b> Hotels</b>
             </Tab>
             <Tab>
-            <div><i className="fas fa-utensils fa-2x"></i></div>
-
-              <b>Restaurants</b>
-              
+                <div><i className="fas fa-utensils fa-2x"></i></div>
+                <b>Restaurants</b>
+            </Tab>
+            <Tab>
+                <div><i className="fa fa-film fa-2x"></i></div>
+                <b>Cinemas</b>
             </Tab>
             <Tab>
             <div><i className="fa fa-spa fa-2x"></i></div>
             <b> Spa</b></Tab>
-            <Tab>
-            <div><i className="fa fa-film fa-2x"></i></div>
-            <b>Cinema</b></Tab>
           </TabList>
 
           <TabPanel>
-          <Featured/>
-        
+            <Featured cat="Hotels"/>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <Featured  cat="Restaurant"/>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 3</h2>
+            <Featured  cat="Cinemas"/>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 4</h2>
+            <Featured  cat="Spa"/>
           </TabPanel>
         </Tabs>
         <Clients/>
