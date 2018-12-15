@@ -11,8 +11,8 @@ export class Header extends Component{
             <div className="row h-100">
                 <div className="col-12 h-100">
                     <nav className="h-100 navbar navbar-expand-lg">
-                    <Link to={`/`}><a className="navbar-brand"><img src="img/bg-img/logo.png" width={'170px'} alt=""/>
-                        </a></Link>
+                   <a className="navbar-brand"> <Link to={`/`}><img src="img/bg-img/logo.png" width={'170px'} alt=""/></Link>
+                        </a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation"><span className="fa fa-bars"></span></button>
                         
                         <div className="collapse navbar-collapse" id="dorneNav">
@@ -20,16 +20,14 @@ export class Header extends Component{
                         
                             </ul>
                             <Search/>
-                            {/* <!-- Signin btn --> */}
-                             {/* <div className="dorne-signin-btn">
-                                <a href="#">+ Add Listings 
-                                </a>
-                            </div>  */}
-                            
+                     
+
                             <div className="dorne-add-listings-btn mx-2"  >
+                                {localStorage["token"] != null  &&  localStorage["token"] != ""? <Info logout = {this.props.logout} /> : <Link style={{color:"white"}} to={`/login`}>
                                 <a href="#" className="btn dorne-btn" >
-                                <Link style={{color:"white"}} to={`/login`}>Sign in  or Register</Link>
+                                Sign in  or Register
                                 </a>
+                                </Link>}
                             </div>
                         </div>
                     </nav>
@@ -41,27 +39,16 @@ export class Header extends Component{
     
 }
 
-// export class Search  extends Component{
-
-//     state={
-//         value: 0
-//     }
-//     handleChange=(e)=>{
-//     this.setState({value:e.target.value});
-//     }
-//     render(){
-//     return  <form action="#" method="get">
-//     <select value={this.state.value}  onChange={this.handleChange} className="custom-select">
-//         <option value="0">Your Destinations</option>
-//         <option value="1">New York</option>
-//         <option value="2">Latvia</option>
-//         <option value="3">Dhaka</option>
-//         <option value="4">Melbourne</option>
-//         <option value="5">London</option>
-//     </select>
-
-   
-//     <button type="submit" className="btn dorne-btn"><i className="fa fa-search pr-2" aria-hidden="true"></i> Search</button>
-// </form>
-//     }
-// }
+export const Info = (props) =>{
+    return <div>
+       
+        <div className="dropdown show">
+  <a className="btn dorne-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Welcome, {localStorage["name"]}
+  </a>
+  <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a className="dropdown-item" href="#" onClick={props.logout}> Log Out </a>
+  </div>
+</div>
+    </div>
+}

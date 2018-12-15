@@ -25,13 +25,35 @@ class App extends Component {
   handleData = (obj) =>{
     this.setState({
         userInfo : {
-          name: obj.name,
-          email: obj.email
+          name: obj.loginname,
+          email: obj.loginemail,
+          token: obj.token
         }
     });
-    localStorage["name"] = obj.name;
-    localStorage["email"] = obj.email;
+    localStorage["name"] = obj.loginname;
+    localStorage["email"] = obj.loginemail;
     localStorage["token"] = obj.token;
+}
+
+loggedIn = () =>{
+ console.log(this.state);
+  if (localStorage["token"] != null && localStorage["token"] != undefined)
+    { console.log(localStorage["token"]);
+      return true;}
+    else {console.log(localStorage["token"]);
+    return false;}
+}
+Logout = () =>{
+  this.setState({
+    userInfo : {
+      name: "",
+      email: "",
+      token: ""
+    }
+  });
+    localStorage["name"] = "";
+    localStorage["email"] = "";
+    localStorage["token"] = "";
 }
 
   render() {
@@ -40,12 +62,18 @@ class App extends Component {
         <div id="preloader">
           <div className="dorne-load"></div>
         </div>
-        <Header/>
+        <Header loggedIn={this.loggedIn} logout={this.Logout} />
 
         <Switch>
           <Route exact path="/" component={MainPage} />
-          <Route path="/login" render={props => <SignInRegister handleData={this.handleData} />} />
-          <Route path="/listing" render={props => <Listing />} />
+         <Route  path="/login" render={() => (
+ localStorage["token"] == "" || localStorage["token"] == null ? (
+   <SignInRegister handleData={this.handleData} />
+   ) : (
+    <Redirect to="/"/>
+ )
+)}/>
+          <Route path="/listing/:category" component={Listing} />
 
         </Switch>
         <Footer/>

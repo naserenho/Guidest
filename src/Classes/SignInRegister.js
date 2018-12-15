@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 export class SignInRegister extends Component {
     state = {
-        loginemail: "",
         name: "",
+        email: "",
+        password: "",
+        
+        loginemail: "",
         loginpassword: "",
         message: "",
         token: "",
@@ -33,6 +36,7 @@ export class SignInRegister extends Component {
                         showResultLogin: true
                     });
                     this.props.handleData(this.state);
+                    // this.props.history.push("/");
                 }
                 else
                     this.setState({
@@ -62,13 +66,13 @@ export class SignInRegister extends Component {
      })
    }).then((res) => {
         res.json().then(r => {
-            if(r.name !== undefined){
+            if(r.username !== undefined){
                 this.setState({
                     message: "Register successful",                
                     status: true,
                     showResult: true
                 });
-                this.props.handleRegister(this.state);
+                // this.props.handleRegister(this.state);
             }
             else
                 this.setState({
@@ -104,7 +108,7 @@ export class SignInRegister extends Component {
            
             <div className="col-12 col-md-5">
             <div id="login-form" className="px-5">
-            <p>Existing User</p>
+            <p className="text-white">Existing User</p>
                 <form onSubmit={this.login}>
               
                     <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
@@ -120,7 +124,7 @@ export class SignInRegister extends Component {
                 {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : "" }
             </div>
             <div id="registration-form" className="px-5 mt-3" >
-            <p className>New User?</p>
+            <p className="text-white">New User?</p>
            
                 <form onSubmit={this.register}>
                     <input className="input-control mb-2" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
@@ -146,18 +150,17 @@ export class SignInRegister extends Component {
     }
 }
 
-const Info = (props) =>{
+export const Info = (props) =>{
     return <div>
         <span style={{color:props.status?"green":"red"}}>{props.status ? "Login Successful" : "Failed to Login"}</span>
         {props.status ? <h3>Welcome User {props.name}</h3> : "" }
-        {props.status ? <h3>Your token {props.token}</h3> : "" }
+        {/* {props.status ? <h3>Your token {props.token}</h3> : "" } */}
     </div>
 }
 
 const RegisterInfo = (props) =>{
     return <div>
         <span style={{color:props.status?"green":"red"}}>{props.message}</span>
-        {props.status ? <h3>Welcome User {props.name}</h3> : "" }
     </div>
 }
 
