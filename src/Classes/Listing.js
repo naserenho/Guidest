@@ -63,21 +63,25 @@ export class Listing extends Component {
 
 class ListItem extends Component{
  state = {
-     result : {}
+     result : {},
+     photo:""
     }
 
     componentDidMount(){
         fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity`,{
             method: 'get',
+            credentials: "same-origin",
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
             }).then((res) => {
                 res.json().then(r => {
                     this.setState({
-                        result:r.result
+                        result:r.result,
+                        photo: `https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&photoreference=${r.result.photos[0].photo_reference}&maxheight=500`
                     });
                    
+                    //this.getPhoto(r.result.photos[0].photo_reference);
                 }).catch(err =>{
         
                 });
@@ -87,7 +91,7 @@ class ListItem extends Component{
  render(){
      return  <div className="col-12 col-sm-6 col-lg-4">
      <div className="single-features-area mb-50">
-         <img src="/img/bg-img/feature-1.jpg" alt=""/>
+         <img src={this.state.photo} alt=""/>
           
          <div className="price-start">
             {/* this.state.result.photos[0].html_attributions[0] */}
