@@ -8,7 +8,9 @@ export class Featured extends Component {
         fetch(`https://guidest.herokuapp.com/places/Cat/${this.props.cat}`,{
         method: 'get',
         headers: new Headers({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin':'*'
+
         })
         }).then((res) => {
             res.json().then(r => {
@@ -33,14 +35,10 @@ export class Featured extends Component {
             </div>
 
             <div className="row">
-            {this.state.places.map((place,i)=>{
-                return  <SingleFeature  rate="9.8" img="img/core-img/map.png" title={place.name} name={place.city} />
+            {this.state.places.map((place)=>{
+                return  <SingleFeature  rate="9.8" title={place.name} name={place.city} />
             })}
-        {/* <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
-        <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
-        <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" />
-        <SingleFeature  rate="9.8" img="img/core-img/map.png" title="Pizzeria venezia" name="Hong Kong" /> */}
-
+       
                
             </div>
         </div>
@@ -58,7 +56,7 @@ export class Featured extends Component {
         {/* <!-- Rating & Map Area --> */}
         <div className="ratings-map-area d-flex">
             <a href="#">{props.rate}</a>
-            <a href="#"><img src={props.img} alt=""/></a>
+            <a href="#"><img src="" alt="" height="27px"/></a>
         </div>
         <div className="feature-content d-flex align-items-center justify-content-between">
             <div className="feature-title">
