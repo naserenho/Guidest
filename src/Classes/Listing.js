@@ -68,7 +68,7 @@ class ListItem extends Component{
     }
 
     componentDidMount(){
-        fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity,opening_hours`,{
+        fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity`,{
             method: 'get',
             credentials: "same-origin",
             headers: new Headers({
@@ -79,7 +79,6 @@ class ListItem extends Component{
                 res.json().then(r => {
                     this.setState({
                         result:r.result,
-                        openingTimes: r.result.opening_hours.weekday_text,
                         photo: `https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&photoreference=${r.result.photos[0].photo_reference}&maxheight=500`
                     });
                 
