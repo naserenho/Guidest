@@ -37,7 +37,7 @@ export class Categories  extends Component{
         categories: []
     }
     componentDidMount(){
-        fetch('https://guidest.herokuapp.com/categories/get',{
+        fetch('https://guidestae.herokuapp.com/categories/get',{
         method: 'get',
         headers: new Headers({
             'Content-Type': 'application/json'

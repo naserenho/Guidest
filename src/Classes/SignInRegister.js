@@ -17,7 +17,7 @@ export class SignInRegister extends Component {
     }
     
     login = (event) => {
-        fetch('https://guidest.herokuapp.com/users/login',{
+        fetch('https://guidestae.herokuapp.com/users/login',{
         method: 'post',
         headers: new Headers({
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export class SignInRegister extends Component {
     }
 
     register = (event) => {
-   fetch('https://guidest.herokuapp.com/users/register',{
+   fetch('https://guidestae.herokuapp.com/users/register',{
      method: 'post',
      headers: new Headers({
          'Content-Type': 'application/json'

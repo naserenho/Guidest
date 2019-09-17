@@ -5,7 +5,7 @@ export class Featured extends Component {
         places: []
     }
     componentDidMount(){
-        fetch(`https://guidest.herokuapp.com/places/Cat/${this.props.cat}`,{
+        fetch(`https://guidestae.herokuapp.com/places/Cat/${this.props.cat}`,{
         method: 'get',
         headers: new Headers({
             'Content-Type': 'application/json',
