@@ -1404,3 +1404,64 @@ li {
     width: 100%;
     height: 380px;
 }
+.custom-select, .input-control{
+    height: 52px;
+border-radius: 0;
+padding: 0 60px 0 30px;
+color: #72728c;
+font-size: 12px;
+font-weight: 600;
+border: none;
+margin-right: 10px;
+}
+ul.react-tabs__tab-list {
+background:#1111112e;
+
+position: relative;
+z-index: 9;
+color: white;
+}
+
+.react-tabs{
+background-color: #34147b;
+
+}
+
+.react-tabs__tab-list{
+margin: 0px !important;
+
+}
+
+
+.react-tabs__tab {
+width: 25%;
+border-radius: 0 !important;
+text-align: center;
+}
+
+.hide{
+display: none;
+}
+
+.show{
+display: inline;
+}
+.login-registration-div{
+
+background-image: url(img/bg-img/hero-1.jpg);
+background-size: cover;
+background-position: center;
+
+}
+.input-control{
+width: 100%;
+border:1px solid grey;
+background-color:white;
+}
+.single-features-area img{
+
+width:100%;
+height:40vh;
+object-fit: cover;
+
+}

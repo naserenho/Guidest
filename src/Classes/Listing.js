@@ -72,10 +72,12 @@ class ListItem extends Component{
         const url =`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity`; 
         fetch(proxyurl+url,{
             method: 'get',
-            credentials: "same-origin",
+           
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':'*'
+                'Access-Control-Allow-Origin':'*',
+               
+
             })
             }).then((res) => {
                 res.json().then(r => {
