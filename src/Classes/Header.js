@@ -11,8 +11,8 @@ export class Header extends Component{
             <div className="row h-100">
                 <div className="col-12 h-100">
                     <nav className="h-100 navbar navbar-expand-lg">
-                   <a className="navbar-brand"> <Link to={`/`}><img src="img/bg-img/logo.png" width={'170px'} alt=""/></Link>
-                        </a>
+                   <Link to={`/`}><div className="navbar-brand"> <img src="img/bg-img/logo.png" width={'170px'} alt=""/>
+                        </div></Link>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation"><span className="fa fa-bars"></span></button>
                         
                         <div className="collapse navbar-collapse" id="dorneNav">
@@ -23,11 +23,14 @@ export class Header extends Component{
                      
 
                             <div className="dorne-add-listings-btn mx-2"  >
-                                {localStorage["token"] != null  &&  localStorage["token"] != ""? <Info logout = {this.props.logout} /> : <Link style={{color:"white"}} to={`/login`}>
-                                <a href="#" className="btn dorne-btn" >
+                                {localStorage["token"] != null  &&  localStorage["token"] != ""? 
+                                <Info logout = {this.props.logout} /> :
+                                         <Link style={{color:"white"}} to={`/login`}>
+                                    <div className="btn dorne-btn" >
                                 Sign in  or Register
-                                </a>
-                                </Link>}
+                                </div>
+                                </Link>
+                                }
                             </div>
                         </div>
                     </nav>

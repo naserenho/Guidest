@@ -35,8 +35,8 @@ export class Featured extends Component {
             </div>
 
             <div className="row">
-            {this.state.places.map((place)=>{
-                return  <SingleFeature  rate="9.8" title={place.name} name={place.city} />
+            {this.state.places.map((place, ind)=>{
+                return  <SingleFeature key={ind} rate="9.8" title={place.name} name={place.city} />
             })}
        
                

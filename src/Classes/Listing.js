@@ -35,8 +35,8 @@ export class Listing extends Component {
             </div>
             <div className="row">
             {
-                this.state.places.map((place)=>{
-                    return <ListItem obj={place} />
+                this.state.places.map((place, ind)=>{
+                    return <ListItem key={ind} obj={place} />
                 })
             }
                {/* <ListItem />
@@ -68,7 +68,9 @@ class ListItem extends Component{
     }
 
     componentDidMount(){
-        fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity`,{
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        const url =`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity`; 
+        fetch(proxyurl+url,{
             method: 'get',
             credentials: "same-origin",
             headers: new Headers({
@@ -77,17 +79,21 @@ class ListItem extends Component{
             })
             }).then((res) => {
                 res.json().then(r => {
-                    this.setState({
-                        result:r.result,
-                        photo: `https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&photoreference=${r.result.photos[0].photo_reference}&maxheight=500`
-                    });
-                
-                }).catch(err =>{
-        
+                        this.setState({
+                            result:r.result,
+                            photo: `https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&photoreference=${r.result.photos[0].photo_reference}&maxheight=500`
+                        });
+                }).catch(err =>{        
+                    console.log("Inside google APIs error.");
+                    console.log(err);
                 });
+            }).catch(err =>{
+                console.log("The google APIs are not working.");
+                console.log(err);
             });
         
     }
+  
  render(){
      return  <div className="col-12 col-sm-6 col-lg-4">
      <div className="single-features-area mb-50">
