@@ -5,7 +5,7 @@ import { Search} from './Search';
 export class Welcome extends Component {
    
     render(){
-        return <section className="dorne-welcome-area bg-img bg-overlay" style={{backgroundImage: "url(img/bg-img/hero-1.jpg)"}}>
+        return <section className="dorne-welcome-area">
         <div className="container h-100">
             <div className="row h-100 align-items-center justify-content-center">
                 <div className="col-12 col-md-8">

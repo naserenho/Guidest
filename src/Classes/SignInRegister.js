@@ -102,7 +102,7 @@ export class SignInRegister extends Component {
     render() {
         return <div>
           <div>
-            <section className="bg-overlay" style={{paddingTop:"130px", backgroundImage:"url(img/bg-img/hero-1.jpg)",  backgroundSize: "cover", backgroundPosition: "center"}}> 
+            <section> 
                 
          <div className="row m-0 align-items-center justify-content-center" >
            

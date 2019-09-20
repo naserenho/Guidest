@@ -11,7 +11,7 @@ export class Header extends Component{
             <div className="row h-100">
                 <div className="col-12 h-100">
                     <nav className="h-100 navbar navbar-expand-lg">
-                   <Link to={`/`}><div className="navbar-brand"> <img src="img/bg-img/logo.png" width={'170px'} alt=""/>
+                   <Link to={`/`}><div className="navbar-brand"> <img src="img/logo-img/guidest-logo.svg" width={'170px'} alt=""/>
                         </div></Link>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation"><span className="fa fa-bars"></span></button>
                         
