@@ -330,7 +330,28 @@ li {
     z-index: 1;
 }
 
-.bg-overlay:after,
+#welcome-section *{
+color: black;
+}
+
+.main-categories .col-6.col-md-3 {
+   
+    min-height: 100px;
+    display: block;
+    text-align: center;
+    padding: 10px;
+   
+   
+   
+}
+
+.main-categories .col-6.col-md-3:hover{
+   
+        box-shadow: 0 5px 15px 2px rgba(0, 0, 0, 0.1);
+     
+}
+
+/* .bg-overlay:after,
 .bg-overlay-9:after {
     content: '';
     position: absolute;
@@ -340,7 +361,7 @@ li {
     left: 0;
     background-color: rgba(14, 2, 35, 0.5);
     z-index: -1;
-}
+} */
 
 .bg-overlay-9:after {
     background-color: rgba(14, 2, 35, 0.9);
@@ -1465,3 +1486,97 @@ height:40vh;
 object-fit: cover;
 
 }
+
+
+
+.sky {
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    position: absolute;
+   
+    z-index: -1;
+    /* -webkit-animation: sky_background 50s ease-out infinite;
+    -moz-animation: sky_background 50s ease-out infinite;
+    -o-animation: sky_background 50s ease-out infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0); */
+    overflow: hidden;
+  }
+
+  
+  .clouds_two {
+    background: url("img/bg-img/bg-city.svg");
+    position: absolute;
+    left: 0;
+    bottom: -30px;
+    height: 100%;
+    width: 300%;
+    opacity: 0.6;
+    
+
+    -webkit-animation: cloud_two 75s linear infinite;
+    -moz-animation: cloud_two 75s linear infinite;
+    -o-animation: cloud_two 75s linear infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0)
+  }
+  
+  
+  
+  @-webkit-keyframes sky_background {
+    0% {
+      background: #007fd5;
+      color: #007fd5
+    }
+    50% {
+      background: #000;
+      color: #a3d9ff
+    }
+    100% {
+      background: #007fd5;
+      color: #007fd5
+    }
+  }
+  
+  
+  @-webkit-keyframes cloud_two {
+    0% {
+      left: 0
+    }
+    100% {
+      left: -200%
+    }
+  }
+  
+  
+  @-moz-keyframes sky_background {
+    0% {
+      background: #007fd5;
+      color: #007fd5
+    }
+    50% {
+      background: #000;
+      color: #a3d9ff
+    }
+    100% {
+      background: #007fd5;
+      color: #007fd5
+    }
+  }
+  
+  
+  
+  @-moz-keyframes cloud_two {
+    0% {
+      left: 0
+    }
+    100% {
+      left: -200%
+    }
+  }
+  

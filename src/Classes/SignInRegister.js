@@ -5,7 +5,6 @@ export class SignInRegister extends Component {
         name: "",
         email: "",
         password: "",
-
         loginemail: "",
         loginpassword: "",
         message: "",
@@ -96,57 +95,43 @@ export class SignInRegister extends Component {
         });
         event.preventDefault();
     }
+
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+
     render() {
         return <div>
-            <div>
-                <section className="bg-overlay" style={{ paddingTop: "130px", backgroundImage: "url(img/bg-img/hero-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}>
-
-                    <div className="row m-0 align-items-center justify-content-center" >
-
-                        <div className="col-12 col-md-5">
-                            <div id="login-form" className="px-5">
-                                <p className="text-white">Existing User</p>
-                                <form onSubmit={this.login}>
-
-                                    <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
-
-
-                                    <input className="input-control mb-2" type="password" placeholder="Password" name="loginpassword" value={this.state.loginpassword} onChange={this.handleChange} />
-
-
-
-                                    <input className="input-control mb-2" type="submit" value="Login" style={{ backgroundColor: "#3c0ea5", color: "white", border: 0 }} />
-
-                                </form>
-                                {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : ""}
-                            </div>
-                            <div id="registration-form" className="px-5 mt-3" >
-                                <p className="text-white">New User?</p>
-
-                                <form onSubmit={this.register}>
-                                    <input className="input-control mb-2" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
-                                    <br />
-                                    <input className="input-control mb-2" type="text" name="name" placeholder="Username" value={this.state.name} onChange={this.handleChange} />
-                                    <br />
-                                    <input className="input-control mb-2" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
-                                    <br />
-                                    <input className="input-control mb-2" type="submit" value="Register" style={{ backgroundColor: "#da4444", color: "white", border: 0 }} />
-                                </form>
-                                {this.state.showResult ? <RegisterInfo status={this.state.status} name={this.state.name} message={this.state.message} /> : ""}
-                                <br /><br />
-                            </div>
+            <section className="bg-overlay" style={{ paddingTop: "130px", backgroundImage: "url(img/bg-img/hero-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}>
+                <div className="row m-0 align-items-center justify-content-center" >
+                    <div className="col-12 col-md-5">
+                        <div id="login-form" className="px-5">
+                            <p className="text-white">Existing User</p>
+                            <form onSubmit={this.login}>
+                                <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
+                                <input className="input-control mb-2" type="password" placeholder="Password" name="loginpassword" value={this.state.loginpassword} onChange={this.handleChange} />
+                                <input className="input-control mb-2" type="submit" value="Login" style={{ backgroundColor: "#3c0ea5", color: "white", border: 0 }} />
+                            </form>
+                            {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : ""}
                         </div>
-
+                        <div id="registration-form" className="px-5 mt-3" >
+                            <p className="text-white">New User?</p>
+                            <form onSubmit={this.register}>
+                                <input className="input-control mb-2" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
+                                <br />
+                                <input className="input-control mb-2" type="text" name="name" placeholder="Username" value={this.state.name} onChange={this.handleChange} />
+                                <br />
+                                <input className="input-control mb-2" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+                                <br />
+                                <input className="input-control mb-2" type="submit" value="Register" style={{ backgroundColor: "#da4444", color: "white", border: 0 }} />
+                            </form>
+                            {this.state.showResult ? <RegisterInfo status={this.state.status} name={this.state.name} message={this.state.message} /> : ""}
+                            <br /><br />
+                        </div>
                     </div>
-                </section>
-
-            </div>
-
+                </div>
+            </section>
         </div>
-
     }
 }
 
