@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-export class SignInRegister extends Component {
+export class ItemDetailsForm extends Component {
     state = {
         name: "",
         email: "",
         password: "",
-
         loginemail: "",
         loginpassword: "",
         message: "",
@@ -16,45 +15,8 @@ export class SignInRegister extends Component {
         showResultLogin: false
     }
 
-    login = (event) => {
-        fetch('https://guidestae.herokuapp.com/users/login', {
-            method: 'post',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                email: this.state.loginemail,
-                password: this.state.loginpassword
-            })
-        }).then((res) => {
-            res.json().then(r => {
-                if (r.token !== undefined) {
-                    this.setState({
-                        token: r.token,
-                        loginname: r.name,
-                        loginstatus: true,
-                        showResultLogin: true
-                    });
-                    this.props.handleData(this.state);
-                    // this.props.history.push("/");
-                }
-                else
-                    this.setState({
-                        loginstatus: false,
-                        showResultLogin: true
-                    });
-            }).catch(err => {
-                this.setState({
-                    loginstatus: false,
-                    showResultLogin: true
-                });
-            });
-        });
-        event.preventDefault();
-    }
-
-    register = (event) => {
-        fetch('https://guidestae.herokuapp.com/users/register', {
+    AddItem = (event) => {
+        fetch('https://guidestae.herokuapp.com/items/add', {
             method: 'post',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -96,37 +58,38 @@ export class SignInRegister extends Component {
         });
         event.preventDefault();
     }
+
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+
+
+    componentDidMount() {
+        fetch(`https://guidestae.herokuapp.com/cats/${this.state.category}`, {
+            method: 'get',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then((res) => {
+            res.json().then(r => {
+                this.setState({
+                    places: r.places
+                });
+            }).catch(err => {
+
+            });
+        });
+    }
+
     render() {
         return <div>
             <div>
                 <section className="bg-overlay" style={{ paddingTop: "130px", backgroundImage: "url(img/bg-img/hero-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}>
-
                     <div className="row m-0 align-items-center justify-content-center" >
-
                         <div className="col-12 col-md-5">
-                            <div id="login-form" className="px-5">
-                                <p className="text-white">Existing User</p>
-                                <form onSubmit={this.login}>
-
-                                    <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
-
-
-                                    <input className="input-control mb-2" type="password" placeholder="Password" name="loginpassword" value={this.state.loginpassword} onChange={this.handleChange} />
-
-
-
-                                    <input className="input-control mb-2" type="submit" value="Login" style={{ backgroundColor: "#3c0ea5", color: "white", border: 0 }} />
-
-                                </form>
-                                {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : ""}
-                            </div>
                             <div id="registration-form" className="px-5 mt-3" >
                                 <p className="text-white">New User?</p>
-
-                                <form onSubmit={this.register}>
+                                <form onSubmit={this.AddItem}>
                                     <input className="input-control mb-2" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
                                     <br />
                                     <input className="input-control mb-2" type="text" name="name" placeholder="Username" value={this.state.name} onChange={this.handleChange} />
@@ -139,14 +102,10 @@ export class SignInRegister extends Component {
                                 <br /><br />
                             </div>
                         </div>
-
                     </div>
                 </section>
-
             </div>
-
         </div>
-
     }
 }
 

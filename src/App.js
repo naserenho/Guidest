@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Header, Search} from './Classes/Header';
-import {Footer} from './Classes/Footer';
-import {MainPage} from './Classes/MainPage';
-import {SignInRegister} from './Classes/SignInRegister'
-import {Listing} from './Classes/Listing'
+import { Header, Search } from './Classes/Header';
+import { Footer } from './Classes/Footer';
+import { MainPage } from './Classes/MainPage';
+import { SignInRegister } from './Classes/SignInRegister'
+import { Listing } from './Classes/Listing'
 
 import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
@@ -15,45 +15,48 @@ import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 class App extends Component {
   state = {
 
-    userInfo:{
+    userInfo: {
       name: "",
       email: "",
       token: ""
     }
   }
-  handleData = (obj) =>{
+  handleData = (obj) => {
     this.setState({
-        userInfo : {
-          name: obj.loginname,
-          email: obj.loginemail,
-          token: obj.token
-        }
+      userInfo: {
+        name: obj.loginname,
+        email: obj.loginemail,
+        token: obj.token
+      }
     });
     localStorage["name"] = obj.loginname;
     localStorage["email"] = obj.loginemail;
     localStorage["token"] = obj.token;
-}
+  }
 
-loggedIn = () =>{
- console.log(this.state);
-  if (localStorage["token"] != null && localStorage["token"] != undefined)
-    { console.log(localStorage["token"]);
-      return true;}
-    else {console.log(localStorage["token"]);
-    return false;}
-}
-Logout = () =>{
-  this.setState({
-    userInfo : {
-      name: "",
-      email: "",
-      token: ""
+  loggedIn = () => {
+    console.log(this.state);
+    if (localStorage["token"] != null && localStorage["token"] != undefined) {
+      console.log(localStorage["token"]);
+      return true;
     }
-  });
+    else {
+      console.log(localStorage["token"]);
+      return false;
+    }
+  }
+  Logout = () => {
+    this.setState({
+      userInfo: {
+        name: "",
+        email: "",
+        token: ""
+      }
+    });
     localStorage["name"] = "";
     localStorage["email"] = "";
     localStorage["token"] = "";
-}
+  }
 
   render() {
     return (
@@ -65,17 +68,17 @@ Logout = () =>{
 
         <Switch>
           <Route exact path="/" component={MainPage} />
-         <Route  path="/login" render={() => (
- localStorage["token"] == "" || localStorage["token"] == null ? (
-   <SignInRegister handleData={this.handleData} />
-   ) : (
-    <Redirect to="/"/>
- )
-)}/>
+          <Route path="/login" render={() => (
+            localStorage["token"] == "" || localStorage["token"] == null ? (
+              <SignInRegister handleData={this.handleData} />
+            ) : (
+                <Redirect to="/" />
+              )
+          )} />
           <Route path="/listing/:category" component={Listing} />
 
         </Switch>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
