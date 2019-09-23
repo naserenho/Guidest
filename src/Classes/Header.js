@@ -19,7 +19,7 @@ export class Header extends Component{
                             <ul className="navbar-nav mr-auto" id="dorneMenu">
                         
                             </ul>
-                            <Search/>
+                            {/* <Search/> */}
                      
 
                             <div className="dorne-add-listings-btn mx-2"  >

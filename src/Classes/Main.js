@@ -74,15 +74,9 @@ export class Main extends Component {
                             </div>
                             <div className="main-categories">
                                 <Categories value={this.state.category} choose={this.handleCategory} />
-                                {/* Do your magic for subcategories  */}
-                                <select value={this.state.subcategory} onChange={this.handleSubcategory} className="custom-select">
-                                    {
-                                        this.state.subcats.map((subcat, i) => {
-                                            return <option key={i} value={subcat.uname}>{subcat.name}</option>
-                                        })
-                                    }
-                                </select>
+
                             </div>
+
 
 
                             {/* <div className="hero-search-form">
@@ -106,8 +100,40 @@ export class Main extends Component {
                 </div>
 
             </section>
+            {/* Do your magic for subcategories  */}
+            <div>
+                <div className="row h-100">
+                    <div className="col-2 side-subcat">
 
-            <Tabs>
+                    <div><img class="side-subcat-img" src="img/subcats-img/dish.svg"/>
+                                </div>
+                                <div class="side-subcat-inner">
+                        {
+                           
+                            this.state.subcats.map((subcat, i) => {
+                                return <div className="mb-2 position-relative" key={i} value={subcat.uname}><span className="side-subcat-circle"></span><img src="img/subcats-item-img/catering.svg"/><p className="mt-3">{subcat.name}</p></div>
+                            })
+                        }
+                        </div>
+                    </div>
+                    <div className="col-9 container mt-5">
+                    <div className="row">
+                       
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
+                    
+                    </div>
+                    </div>
+                </div>
+                </div>
+              
+
+            {/* <Tabs>
                 <TabList>
                     <Tab>
                         <div><i className="fa fa-hotel fa-2x"></i></div>
@@ -139,7 +165,7 @@ export class Main extends Component {
                     <Featured cat="Spa" />
                 </TabPanel>
             </Tabs>
-            <Clients />
+            <Clients /> */}
         </div>
     }
 
