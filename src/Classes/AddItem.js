@@ -8,10 +8,10 @@ export class ItemDetailsForm extends Component {
         cat: "",
         uname: this.props.match.params.itemName,
         name: "",
-        type: "",
+        type: "Offline",
         link: "",
         placeID: "",
-        city: "",
+        city: "All",
         subcat: "",
         tags: "",
         email: "",
@@ -254,7 +254,7 @@ export const Info = (props) => {
 
 const AddInfo = (props) => {
     return <div>
-        <span style={{ color: props.status ? "green" : "red" }}>{props.message}</span>
+        <span style={{ color: props.status ? "green" : "red", fontSize: "25px" }}>{props.message}</span>
     </div>
 }
 

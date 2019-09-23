@@ -4,15 +4,6 @@ export class Featured extends Component {
     render() {
         return <section className="dorne-listing-destinations-area section-padding-100-50">
             <div className="container">
-                {/* <div className="row">
-                    <div className="col-12">
-                        <div className="section-heading dark text-center">
-                            <span></span>
-                            <h4>Featured {this.state.category}</h4>
-                            <p>Editor’s pick</p>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="row">
                     {
                         this.props.items.length > 0 ? this.props.items.map((item, ind) => {
@@ -27,9 +18,8 @@ export class Featured extends Component {
 
 }
 export const SingleFeature = (props) => {
-    return <div className="col-md-3">
-        <div className="features-slides">
-        </div><div className="single-features-area">
+    return <div className="col-6 col-md-4">
+        <div className="subcat-items">
             <img src="img/bg-img/feature-10.jpg" alt="" style={{
                 width: "100%",
                 height: "35vh", objectFit: "cover"
@@ -90,8 +80,8 @@ class ListItem extends Component {
     }
 
     render() {
-        return <div className="col-12 col-sm-6 col-lg-4">
-            <div className="single-features-area mb-50">
+        return <div className="col-6 col-md-4">
+            <div className="subcat-items">
                 <img src={this.state.photo} alt="" />
 
                 <div className="price-start">
