@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-<<<<<<< HEAD
-import { Header, Search } from './Classes/Header';
-import { Footer } from './Classes/Footer';
-import { MainPage } from './Classes/MainPage';
-import { SignInRegister } from './Classes/SignInRegister'
-import { Listing } from './Classes/Listing'
-||||||| merged common ancestors
-import {Header, Search} from './Classes/Header';
-import {Footer} from './Classes/Footer';
-import {MainPage} from './Classes/MainPage';
-import {SignInRegister} from './Classes/SignInRegister'
-import {Listing} from './Classes/Listing'
-=======
 import { Header, Search } from './Classes/Header';
 import { Footer } from './Classes/Footer';
 import { MainPage } from './Classes/MainPage';
 import { Main } from './Classes/Main';
-import { SignInRegister } from './Classes/SignInRegister'
-import { Listing } from './Classes/Listing'
->>>>>>> c811ec94ebc7f1e09731df45ced65f14b6b685cc
+import { SignInRegister } from './Classes/SignInRegister';
+import { Listing } from './Classes/Listing';
+import { ItemDetailsForm } from './Classes/AddItem';
 
 import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
@@ -82,25 +69,6 @@ class App extends Component {
         <Header loggedIn={this.loggedIn} logout={this.Logout} />
 
         <Switch>
-<<<<<<< HEAD
-          <Route exact path="/" component={MainPage} />
-          <Route path="/login" render={() => (
-            localStorage["token"] == "" || localStorage["token"] == null ? (
-              <SignInRegister handleData={this.handleData} />
-            ) : (
-                <Redirect to="/" />
-              )
-          )} />
-||||||| merged common ancestors
-          <Route exact path="/" component={MainPage} />
-         <Route  path="/login" render={() => (
- localStorage["token"] == "" || localStorage["token"] == null ? (
-   <SignInRegister handleData={this.handleData} />
-   ) : (
-    <Redirect to="/"/>
- )
-)}/>
-=======
           <Route exact path="/" component={Main} />
           <Route path="/oldmain" component={MainPage} />
           <Route path="/login" render={() => (
@@ -110,9 +78,9 @@ class App extends Component {
                 <Redirect to="/" />
               )
           )} />
->>>>>>> c811ec94ebc7f1e09731df45ced65f14b6b685cc
           <Route path="/listing/:category" component={Listing} />
-
+          <Route path="/Items/Add" component={ItemDetailsForm} />
+          <Route path="/Items/Edit/:itemName" component={ItemDetailsForm} />
         </Switch>
         <Footer />
       </div>

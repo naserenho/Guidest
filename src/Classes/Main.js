@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Featured, SingleFeature } from './Featured';
 import { Categories } from './Categories';
-import { Subcategories } from './Subcategories';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Clients } from './Clients';
 
@@ -12,11 +11,15 @@ export class Main extends Component {
         category: "",
         subcategory: "",
         subcats: [],
-        city: ""
+        city: "All",
+        items: []
     }
 
     changeCity = (e) => {
         this.setState({ city: e.target.value });
+        if (e.target.value && this.state.subcategory) {
+            this.fillItems(this.state.subcategory, e.target.value);
+        }
     }
 
     handleCategory = (e) => {
@@ -26,6 +29,9 @@ export class Main extends Component {
 
     handleSubcategory = (e) => {
         this.setState({ subcategory: e.target.value });
+        if (e.target.value && this.state.city) {
+            this.fillItems(e.target.value, this.state.city);
+        }
     }
 
     fillSubs = (e) => {
@@ -37,13 +43,35 @@ export class Main extends Component {
         }).then((res) => {
             res.json().then(r => {
                 this.setState({
-                    subcats: r.Subcategories
+                    subcats: r.Subcategories,
+                    subcategory: r.Subcategories[0].uname
                 });
+                if (r.Subcategories[0].uname && this.state.city) {
+                    this.fillItems(r.Subcategories[0].uname, this.state.city);
+                }
             }).catch(err => {
                 this.setState({
                     // loginstatus: false,
                     // showResultLogin: true
                 });
+            });
+        });
+    }
+
+    fillItems = (e, t) => {
+        fetch(`https://guidestae.herokuapp.com/items/get/${e}/${t}`, {
+            method: 'get',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        }).then((res) => {
+            res.json().then(r => {
+                this.setState({
+                    items: r.items
+                });
+            }).catch(err => {
+
             });
         });
     }
@@ -61,7 +89,7 @@ export class Main extends Component {
                             </div>
                             <div>
                                 <select value={this.state.city} onChange={this.changeCity} className="custom-select">
-                                    <option value="0">Your Destinations</option>
+                                    <option value="All">Your Destinations</option>
                                     <option value="AbuDhabi">Abu Dhabi</option>
                                     <option value="AlAin">Al Ain</option>
                                     <option value="Dubai">Dubai</option>
@@ -106,40 +134,7 @@ export class Main extends Component {
                 </div>
 
             </section>
-
-            <Tabs>
-                <TabList>
-                    <Tab>
-                        <div><i className="fa fa-hotel fa-2x"></i></div>
-                        <b> Hotels</b>
-                    </Tab>
-                    <Tab>
-                        <div><i className="fas fa-utensils fa-2x"></i></div>
-                        <b>Restaurants</b>
-                    </Tab>
-                    <Tab>
-                        <div><i className="fa fa-film fa-2x"></i></div>
-                        <b>Cinemas</b>
-                    </Tab>
-                    <Tab>
-                        <div><i className="fa fa-spa fa-2x"></i></div>
-                        <b> Spa</b></Tab>
-                </TabList>
-
-                <TabPanel>
-                    <Featured cat="Hotels" />
-                </TabPanel>
-                <TabPanel>
-                    <Featured cat="Restaurant" />
-                </TabPanel>
-                <TabPanel>
-                    <Featured cat="Cinemas" />
-                </TabPanel>
-                <TabPanel>
-                    <Featured cat="Spa" />
-                </TabPanel>
-            </Tabs>
-            <Clients />
+            <Featured subcat={this.state.subcategory} city={this.state.city} items={this.state.items} />
         </div>
     }
 
