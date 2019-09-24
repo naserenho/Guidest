@@ -33,14 +33,15 @@ class App extends Component {
         role: obj.userRole
       }
     });
-    localStorage["name"] = obj.loginname;
-    localStorage["email"] = obj.loginemail;
-    localStorage["token"] = obj.token;
+    sessionStorage["name"] = obj.loginname;
+    sessionStorage["email"] = obj.loginemail;
+    sessionStorage["token"] = obj.token;
+    sessionStorage["role"] = obj.userRole;
   }
 
   loggedIn = () => {
     //console.log(this.state);
-    if (localStorage["token"] != null && localStorage["token"] != undefined) {
+    if (sessionStorage["token"] != null && sessionStorage["token"] != undefined) {
       //console.log(localStorage["token"]);
       return true;
     }
@@ -58,9 +59,11 @@ class App extends Component {
         role: ""
       }
     });
-    localStorage["name"] = "";
-    localStorage["email"] = "";
-    localStorage["token"] = "";
+    
+    sessionStorage["name"] = "";
+    sessionStorage["email"] = "";
+    sessionStorage["token"] = "";
+    sessionStorage["role"] = "";
   }
 
   render() {
@@ -75,7 +78,7 @@ class App extends Component {
           <Route exact path="/" component={Main} />
           <Route path="/oldmain" component={MainPage} />
           <Route path="/login" render={() => (
-            !this.state.userInfo.token ? (
+            !sessionStorage["token"] ? (
               <SignInRegister handleLogin={this.handleLogin} />
             ) : (
                 <Redirect to="/" />
@@ -83,14 +86,14 @@ class App extends Component {
           )} />
           <Route path="/listing/:category" component={Listing} />
           <Route exact path="/Items/Manage" render={() => (
-            this.state.userInfo && this.state.userInfo.role == "Admin" || this.state.userInfo.role == "SuperAdmin" ? (
-              <ItemDetailsForm token={this.state.userInfo.token} /> 
+            sessionStorage["role"] && sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? (
+              <ItemDetailsForm token={sessionStorage["token"]} /> 
             ) : (
               <Redirect to="/" />
             )
           )} />
           <Route exact path="/Users" render={() => (
-            this.state.userInfo && this.state.userInfo.role == "Admin" || this.state.userInfo.role == "SuperAdmin" ? (
+            sessionStorage["role"] && sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? (
               <ItemDetailsForm /> 
             ) : (
               <Redirect to="/" />

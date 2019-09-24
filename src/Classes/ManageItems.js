@@ -33,12 +33,12 @@ export class ItemDetailsForm extends Component {
     }
 
     AddUpdateItem = (event) => {
-        if(this.state.FormType == "Add"){
+        if (this.state.FormType == "Add") {
             fetch('https://guidestae.herokuapp.com/items/add', {
                 method: 'post',
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': this.props.token
+                    'Authorization': sessionStorage["token"]
                 }),
                 body: JSON.stringify({
                     uname: this.state.uname,
@@ -88,12 +88,12 @@ export class ItemDetailsForm extends Component {
                     showResult: true
                 });
             });
-        } else if (this.state.FormType == "Edit"){
+        } else if (this.state.FormType == "Edit") {
             fetch('https://guidestae.herokuapp.com/items/update', {
                 method: 'post',
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': this.props.token
+                    'Authorization': sessionStorage["token"]
                 }),
                 body: JSON.stringify({
                     uname: this.state.uname,
@@ -118,16 +118,7 @@ export class ItemDetailsForm extends Component {
                         });
                         console.log(res.status);
                         if (res.status == true) {
-                            this.setState({
-                                uname: "",
-                                name: "",
-                                link: "",
-                                placeID: "",
-                                email: "",
-                                contact: "",
-                                price: "",
-                                tags: ""
-                            });
+                            this.emptyForm();
                         }
                     }
                 }).catch(err => {
@@ -145,6 +136,19 @@ export class ItemDetailsForm extends Component {
             });
         }
         event.preventDefault();
+    }
+
+    emptyForm = () => {
+        this.setState({
+            uname: "",
+            name: "",
+            link: "",
+            placeID: "",
+            email: "",
+            contact: "",
+            price: "",
+            tags: ""
+        });
     }
 
     handleChange = (e) => {
@@ -178,7 +182,7 @@ export class ItemDetailsForm extends Component {
         }
     }
 
-    handleItemToEdit= (e) => {
+    handleItemToEdit = (e) => {
         this.setState({ ItemToEdit: e.target.value });
         //GET index of item from uname
         let index = this.state.ItemsEdit.findIndex(x => x.uname === e.target.value);
@@ -214,25 +218,31 @@ export class ItemDetailsForm extends Component {
             method: 'post',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': sessionStorage["token"]
             }),
             body: JSON.stringify({
                 subcat: subcat
             })
         }).then((res) => {
             res.json().then(r => {
-                // console.log(r.items);
-                this.setState({
-                    ItemsEdit: r.items,
-                    ItemToEdit: r.items[0].uname
-                });
-                this.fillFormItem(r.items[0]);
+                if (r.items.length > 0) {
+                    this.setState({
+                        ItemsEdit: r.items,
+                        ItemToEdit: r.items[0].uname
+                    });
+                    this.fillFormItem(r.items[0]);
+                } else {
+                    this.setState({
+                        ItemsEdit: [],
+                        ItemToEdit: ""
+                    });
+                    this.emptyForm();
+                }
             }).catch(err => {
-                this.setState({
-                    // loginstatus: false,
-                    // showResultLogin: true
-                });
+                console.log(err);
             });
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -317,17 +327,17 @@ export class ItemDetailsForm extends Component {
                                     </div>
                                     {
                                         this.state.FormType == "Edit" ? (<div className="clear mb-3" style={{ borderBottom: "2px solid white" }}>
-                                        <span className="col-md-3" style={{ float: 'left', color: "white" }}>Items:</span>
-                                        <div className="col-md-9" style={{ width: "80%", float: 'left' }}>
-                                            <select value={this.state.ItemToEdit} onChange={this.handleItemToEdit} className="custom-select">
-                                                {
-                                                    this.state.ItemsEdit.map((Item, i) => {
-                                                        return <option key={i} value={Item.uname}>{Item.name}</option>
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-                                        </div>): ""
+                                            <span className="col-md-3" style={{ float: 'left', color: "white" }}>Items:</span>
+                                            <div className="col-md-9" style={{ width: "80%", float: 'left' }}>
+                                                <select value={this.state.ItemToEdit} onChange={this.handleItemToEdit} className="custom-select">
+                                                    {
+                                                        this.state.ItemsEdit.map((Item, i) => {
+                                                            return <option key={i} value={Item.uname}>{Item.name}</option>
+                                                        })
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>) : ""
                                     }
                                     <div className="clear mb-3">
                                         <span className="col-md-3" style={{ float: 'left', color: "white" }}>City:</span>

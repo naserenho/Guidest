@@ -21,7 +21,7 @@ export class Header extends Component {
                                 </ul>
                                 {/* <Search/> */}
                                 <div className="dorne-add-listings-btn mx-2"  >
-                                    {this.props.userInfo && this.props.userInfo.token ?
+                                    {sessionStorage["token"] && sessionStorage["token"] ?
                                         <Info logout={this.props.logout} userInfo={this.props.userInfo} /> :
                                         <Link style={{ color: "white" }} to={`/login`}>
                                             <div className="btn dorne-btn">
@@ -45,11 +45,11 @@ export const Info = (props) => {
 
         <div className="dropdown show">
             <a className="btn dorne-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Welcome, {props.userInfo.name} { props.userInfo.role == "Admin" ?
-                 " (Admin)" : (props.userInfo.role == "SuperAdmin" ? " (SuperAdmin)" : "")}
+                Welcome, {sessionStorage["name"]} { sessionStorage["role"] == "Admin" ?
+                 " (Admin)" : (sessionStorage["role"] == "SuperAdmin" ? " (SuperAdmin)" : "")}
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                {props.userInfo.role == "Admin" || props.userInfo.role == "SuperAdmin" ? <Link to={`/Items/Manage`}>
+                {sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? <Link to={`/Items/Manage`}>
                 <div className="dropdown-item" href="#"> Add/Edit Item </div>
                 </Link> : "" }
                 <a className="dropdown-item" href="#" onClick={props.logout}> Log Out </a>
