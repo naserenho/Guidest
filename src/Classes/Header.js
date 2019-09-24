@@ -21,10 +21,10 @@ export class Header extends Component {
                                 </ul>
                                 {/* <Search/> */}
                                 <div className="dorne-add-listings-btn mx-2"  >
-                                    {localStorage["token"] != null && localStorage["token"] != "" ?
-                                        <Info logout={this.props.logout} /> :
+                                    {this.props.userInfo && this.props.userInfo.token ?
+                                        <Info logout={this.props.logout} userInfo={this.props.userInfo} /> :
                                         <Link style={{ color: "white" }} to={`/login`}>
-                                            <div className="btn dorne-btn" >
+                                            <div className="btn dorne-btn">
                                                 Sign in  or Register
                                 </div>
                                         </Link>
@@ -45,10 +45,13 @@ export const Info = (props) => {
 
         <div className="dropdown show">
             <a className="btn dorne-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Welcome, {localStorage["name"]}
+                Welcome, {props.userInfo.name} { props.userInfo.role == "Admin" ?
+                 " (Admin)" : (props.userInfo.role == "SuperAdmin" ? " (SuperAdmin)" : "")}
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <Link to={`/Items/Add`}><div className="dropdown-item" href="#"> Add Item </div></Link>
+                {props.userInfo.role == "Admin" || props.userInfo.role == "SuperAdmin" ? <Link to={`/Items/Manage`}>
+                <div className="dropdown-item" href="#"> Add/Edit Item </div>
+                </Link> : "" }
                 <a className="dropdown-item" href="#" onClick={props.logout}> Log Out </a>
             </div>
         </div>

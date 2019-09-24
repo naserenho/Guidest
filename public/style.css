@@ -1652,3 +1652,8 @@ max-width: 80px;
     }
   }
   
+
+.clear{
+    clear: both;
+    float: left
+}

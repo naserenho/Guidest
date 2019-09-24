@@ -9,6 +9,7 @@ export class SignInRegister extends Component {
         loginpassword: "",
         message: "",
         token: "",
+        userRole : "",
         status: false,
         loginstatus: false,
         showResult: false,
@@ -31,10 +32,11 @@ export class SignInRegister extends Component {
                     this.setState({
                         token: r.token,
                         loginname: r.name,
+                        userRole: r.roleType,
                         loginstatus: true,
                         showResultLogin: true
                     });
-                    this.props.handleData(this.state);
+                    this.props.handleLogin(this.state);
                     // this.props.history.push("/");
                 }
                 else
@@ -43,6 +45,7 @@ export class SignInRegister extends Component {
                         showResultLogin: true
                     });
             }).catch(err => {
+                console.log(err);
                 this.setState({
                     loginstatus: false,
                     showResultLogin: true

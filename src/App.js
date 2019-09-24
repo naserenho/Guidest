@@ -6,7 +6,7 @@ import { MainPage } from './Classes/MainPage';
 import { Main } from './Classes/Main';
 import { SignInRegister } from './Classes/SignInRegister';
 import { Listing } from './Classes/Listing';
-import { ItemDetailsForm } from './Classes/AddItem';
+import { ItemDetailsForm } from './Classes/ManageItems';
 
 import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
@@ -20,15 +20,17 @@ class App extends Component {
     userInfo: {
       name: "",
       email: "",
-      token: ""
+      token: "",
+      role: ""
     }
   }
-  handleData = (obj) => {
+  handleLogin = (obj) => {
     this.setState({
       userInfo: {
         name: obj.loginname,
         email: obj.loginemail,
-        token: obj.token
+        token: obj.token,
+        role: obj.userRole
       }
     });
     localStorage["name"] = obj.loginname;
@@ -37,13 +39,13 @@ class App extends Component {
   }
 
   loggedIn = () => {
-    console.log(this.state);
+    //console.log(this.state);
     if (localStorage["token"] != null && localStorage["token"] != undefined) {
-      console.log(localStorage["token"]);
+      //console.log(localStorage["token"]);
       return true;
     }
     else {
-      console.log(localStorage["token"]);
+      //console.log(localStorage["token"]);
       return false;
     }
   }
@@ -52,7 +54,8 @@ class App extends Component {
       userInfo: {
         name: "",
         email: "",
-        token: ""
+        token: "",
+        role: ""
       }
     });
     localStorage["name"] = "";
@@ -66,21 +69,33 @@ class App extends Component {
         <div id="preloader">
           <div className="dorne-load"></div>
         </div>
-        <Header loggedIn={this.loggedIn} logout={this.Logout} />
+        <Header loggedIn={this.loggedIn} logout={this.Logout} userInfo={this.state.userInfo} />
 
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/oldmain" component={MainPage} />
           <Route path="/login" render={() => (
-            localStorage["token"] == "" || localStorage["token"] == null ? (
-              <SignInRegister handleData={this.handleData} />
+            !this.state.userInfo.token ? (
+              <SignInRegister handleLogin={this.handleLogin} />
             ) : (
                 <Redirect to="/" />
               )
           )} />
           <Route path="/listing/:category" component={Listing} />
-          <Route path="/Items/Add" component={ItemDetailsForm} />
-          <Route path="/Items/Edit/:itemName" component={ItemDetailsForm} />
+          <Route exact path="/Items/Manage" render={() => (
+            this.state.userInfo && this.state.userInfo.role == "Admin" || this.state.userInfo.role == "SuperAdmin" ? (
+              <ItemDetailsForm token={this.state.userInfo.token} /> 
+            ) : (
+              <Redirect to="/" />
+            )
+          )} />
+          <Route exact path="/Users" render={() => (
+            this.state.userInfo && this.state.userInfo.role == "Admin" || this.state.userInfo.role == "SuperAdmin" ? (
+              <ItemDetailsForm /> 
+            ) : (
+              <Redirect to="/" />
+            )
+          )} />
         </Switch>
         <Footer />
       </div>
