@@ -12,7 +12,8 @@ export class Main extends Component {
         subcategory: "",
         subcats: [],
         city: "All",
-        items: []
+        items: [],
+        
     }
 
     changeCity = (e) => {
@@ -44,8 +45,11 @@ export class Main extends Component {
             res.json().then(r => {
                 this.setState({
                     subcats: r.Subcategories,
-                    subcategory: r.Subcategories[0].uname
+                    subcategory: r.Subcategories[0].uname,
+                    icons: r.Subcategories[0].icon
+                    
                 });
+                
                 if (r.Subcategories[0].uname && this.state.city) {
                     this.fillItems(r.Subcategories[0].uname, this.state.city);
                 }
@@ -147,8 +151,8 @@ export class Main extends Component {
                             {
                                 this.state.subcats.map((subcat, i) => {
                                     return <div className="mb-2 position-relative" key={i} data-id={subcat.uname} onClick={this.handleSubcategory.bind(this)}>
-                                        <span className={"side-subcat-circle" + (this.state.subcategory == subcat.uname ? " ColoredSubCat" : "")}></span>
-                                        <img src="img/subcats-item-img/catering.svg" />
+                                        <span className={"side-subcat-circle circle spin" + (this.state.subcategory == subcat.uname ? " ColoredSubCat" : "")}> <img src={"img/subcats-item-img/" + subcat.icon} /></span>
+
                                         <p className="mt-3">{subcat.name}</p>
                                     </div>
                                 })
@@ -159,16 +163,11 @@ export class Main extends Component {
                         <div className="row">
                             {
                                 this.state.items.length > 0 ? this.state.items.map((item, ind) => {
-                                    return <ListItem key={ind} obj={item} />
+                                    return <ListItem  subcatIcon={this.state.subcats[this.state.subcats.findIndex(x=> x.uname === this.state.subcategory)].icon} key={ind} obj={item} />
                                 }) : <div>No items yet in {this.state.subcategory} and {this.state.city}</div>
                             }
-                            {/* <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
-                            <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
-                            <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
-                            <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
-                            <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
-                            <div className="col-6 col-md-4"><div className="subcat-items"></div></div>
-                            <div className="col-6 col-md-4"><div className="subcat-items"></div></div> */}
+                       
+
                         </div>
                     </div>
                 </div>
@@ -218,34 +217,92 @@ class ListItem extends Component {
     }
 
     render() {
-        return <div className="col-6 col-md-4">
-            <div className="subcat-items">
-                <img src={this.state.photo} alt="" />
-
-                <div className="price-start">
-                    {/* this.state.result.photos[0].html_attributions[0] */}
-                    <p><i className="fa fa-star"></i>  {this.state.result.rating}</p>
+        let tags = this.props.obj.tags.split(',');
+        console.log(tags);
+        return <div className="col-md-4"><div className="subcat-items">  
+        <div className="post-module hover border">
+            <div className="thumbnail">
+                <div className="poster-img" style={{backgroundImage:"url("+(this.state.photo)+")"}}>
+                <div className="subcategory">
+                    <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
+                       </div>
                 </div>
-
-                <div className="feature-content d-flex align-items-center justify-content-between">
-                    <div className="feature-title">
-                        <h5>{this.props.obj.name}</h5>
-                        <p>{this.props.obj.city}</p>
-                        <p>{this.props.obj.tags}</p>
-                        {/* <p>{this.state.openingTimes}</p> */}
-
-
-
-                        <a href={this.state.result.url}><i className="fas fa-map-pin"></i> {this.state.result.formatted_address}</a>
-
-
-                    </div>
-                    <div className="feature-favourite">
-                        <a href="#"><i className="far fa-heart" aria-hidden="true"></i></a>
-                    </div>
-                </div>
+                <div className="rating"><i className="fa fa-star"></i>  {this.state.result.rating}</div> 
             </div>
-        </div>
+            </div>
+                  
+            <div className="post-content">
+               
+                <h1 className="title">{this.props.obj.name}</h1>
+                <div className="description">
+                
+                        <span>{this.props.obj.city}</span>
+                        <a href={this.state.result.url} className="item-location">
+                        <i className="fas fa-map-pin"></i> Location</a>
+                        <div>
+                        {
+                                tags.map((tag, i) => {
+                                    let trimmedTag = tag.trim();
+                                    return <span data-tag={trimmedTag.replace(' ', '-')} className="items-tags">{tag}</span>
+                                    
+                                })
+                            }
+
+
+                        </div>
+                        
+
+                </div>
+                 <hr/>
+                 <button className="button">Show more</button>
+
+
+            </div>
+        </div></div></div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // <div className="col-6 col-md-4">
+        //     <div className="subcat-items">
+        //         <img src={this.state.photo} alt="" />
+
+        //         <div className="price-start">
+        //             {/* this.state.result.photos[0].html_attributions[0] */}
+        //             <p><i className="fa fa-star"></i>  {this.state.result.rating}</p>
+        //         </div>
+
+        //         <div className="feature-content d-flex align-items-center justify-content-between">
+        //             <div className="feature-title">
+        //                 <h5>{this.props.obj.name}</h5>
+        //                 <p>{this.props.obj.city}</p>
+        //                 <p>{this.props.obj.tags}</p>
+        //                 {/* <p>{this.state.openingTimes}</p> */}
+
+
+
+        //                 <a href={this.state.result.url}><i className="fas fa-map-pin"></i> {this.state.result.formatted_address}</a>
+
+
+        //             </div>
+        //             <div className="feature-favourite">
+        //                 <a href="#"><i className="far fa-heart" aria-hidden="true"></i></a>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
     }
 
 }
