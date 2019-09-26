@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 export class SignInRegister extends Component {
     state = {
@@ -9,11 +10,25 @@ export class SignInRegister extends Component {
         loginpassword: "",
         message: "",
         token: "",
-        userRole : "",
+        userRole: "",
         status: false,
         loginstatus: false,
         showResult: false,
-        showResultLogin: false
+        showResultLogin: false,
+
+        redirect: false
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/' />
+        }
     }
 
     login = (event) => {
@@ -23,8 +38,8 @@ export class SignInRegister extends Component {
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({
-                email: this.state.loginemail,
-                password: this.state.loginpassword
+                email: this.state.loginemail || this.state.email,
+                password: this.state.loginpassword || this.state.password
             })
         }).then((res) => {
             res.json().then(r => {
@@ -37,6 +52,7 @@ export class SignInRegister extends Component {
                         showResultLogin: true
                     });
                     this.props.handleLogin(this.state);
+                    this.setRedirect(); //After logging in, set redirect to true so we go to main page
                     // this.props.history.push("/");
                 }
                 else
@@ -74,6 +90,7 @@ export class SignInRegister extends Component {
                         status: true,
                         showResult: true
                     });
+                    this.login();
                     // this.props.handleRegister(this.state);
                 }
                 else
@@ -105,6 +122,7 @@ export class SignInRegister extends Component {
 
     render() {
         return <div>
+            {this.renderRedirect()}
             <section className="bg-overlay" style={{ paddingTop: "130px", backgroundImage: "url(img/bg-img/hero-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}>
                 <div className="row m-0 align-items-center justify-content-center" >
                     <div className="col-12 col-md-5">
