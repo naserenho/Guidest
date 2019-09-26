@@ -1,0 +1,115 @@
+
+@import url('https://use.fontawesome.com/releases/v5.6.0/css/all.css');
+@font-face{
+    font-family:
+}
+.items-tags{
+    background-color: #a478b9;
+
+    margin: 3px;
+    padding: 0px 5px;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+
+}
+
+.items-tags::before{
+    font-family:  'Font Awesome 5 Free' !important;
+}
+
+[data-tag="Family"]{
+    background-color:#6dbf80 !important;
+    position: relative;
+   
+}
+
+[data-tag="Family"]:before{
+    content: '\f004';
+    padding-right: 2px;
+  
+   
+}
+
+[data-tag="Free-wifi"]{
+    background-color:#15aabf !important;
+    position: relative;
+   
+}
+
+[data-tag="Free-wifi"]:before{
+    content: '\f1eb';
+   
+    padding-right: 2px;
+  
+   
+}
+
+
+[data-tag="none-smoke"]{
+    background-color:#dc3545 !important;
+    position: relative;
+    /* f54d */
+}
+
+[data-tag="valet-parking"]{
+    background-color:#d4a10a !important;
+    position: relative;
+    
+    /* \f1b9 */
+}
+
+[data-tag="smiles-offer"]{
+    background-color:#c8d92c !important;
+    position: relative;
+    color: black;
+    /* f295 */
+    
+     
+}
+
+
+
+.bounce {
+	position: absolute;
+    bottom: -50px;
+    width: 300px;
+    height: 60px;
+    margin-left: -30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    animation: bounce 10s infinite;
+    -webkit-animation: bounce 10s infinite;
+    -moz-animation: bounce 10s infinite;
+    -o-animation: bounce 10s infinite;
+}
+ 
+@-webkit-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	
+	40% {-webkit-transform: translateY(-15px);}
+	60% {-webkit-transform: translateY(-15px);}
+}
+ 
+@-moz-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+	40% {-moz-transform: translateY(-15px);}
+	60% {-moz-transform: translateY(-15px);}
+}
+ 
+@-o-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+	40% {-o-transform: translateY(-15px);}
+	60% {-o-transform: translateY(-15px);}
+}
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+	40% {transform: translateY(-15px);}
+	60% {transform: translateY(-15px);}
+}
+
+
+
+
+
