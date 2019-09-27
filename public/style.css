@@ -557,6 +557,7 @@ color: black;
     height:100vh;
     position: relative;
     z-index: 1;
+    /* background: #778390; */
 }
 
 .hero-content h2 {
@@ -1519,7 +1520,7 @@ animation-name: spin;
 .sky {
     height: 100%;
     left: 0;
-    top: -40px;
+    top: 0;
     width: 100%;
     position: absolute;
     z-index: -1;
@@ -1807,9 +1808,9 @@ white-space: nowrap;
     height: 400px;
     overflow: hidden;
   }
-  .post-module .thumbnail .subcategory {
+  .post-module .post-content .subcategory {
     position: absolute;
-    top: 10px;
+    top: -30px;
     right: 10px;
     z-index: 1;
     background: #a478b9;
@@ -1870,7 +1871,7 @@ white-space: nowrap;
     width: 100%;
     padding: 20px;
     height: 250px;
-    overflow: hidden;
+    /* overflow: hidden; */
    
     -webkti-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -1894,6 +1895,21 @@ white-space: nowrap;
     border-top-right-radius: 23px;
     border-bottom-right-radius: 23px;
   }
+
+  .post-module .poster-img .location {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #a478b9;
+    padding: 10px 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-top-left-radius: 23px;
+    border-bottom-left-radius: 23px;
+  }
+
   .post-module .post-content .title {
     margin: 0;
     padding: 0 0 10px;

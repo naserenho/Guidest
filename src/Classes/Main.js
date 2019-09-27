@@ -143,7 +143,7 @@ export class Main extends Component {
             {/* Do your magic for subcategories  */}
             <div>
                 <div className="row h-100">
-                    <div className="col-2 side-subcat">
+                    <div className="col-md-2 side-subcat">
 
                         <div><img className="side-subcat-img" src="img/subcats-img/dish.svg" />
                         </div>
@@ -223,22 +223,23 @@ class ListItem extends Component {
         <div className="post-module hover border">
             <div className="thumbnail">
                 <div className="poster-img" style={{backgroundImage:"url("+(this.state.photo)+")"}}>
-                <div className="subcategory">
-                    <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
-                       </div>
-                </div>
+                
                 <div className="rating"><i className="fa fa-star"></i>  {this.state.result.rating}</div> 
+                <div className="location"><a href={this.state.result.url}>
+                        <i className="fas fa-map-pin"></i> Location</a></div> 
             </div>
             </div>
                   
             <div className="post-content">
-               
+            <div className="subcategory">
+                    <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
+                       </div>
+                </div>
                 <h1 className="title">{this.props.obj.name}</h1>
                 <div className="description">
                 
                         <span>{this.props.obj.city}</span>
-                        <a href={this.state.result.url} className="item-location">
-                        <i className="fas fa-map-pin"></i> Location</a>
+                      
                         <div>
                         {
                                 tags.map((tag, i) => {
