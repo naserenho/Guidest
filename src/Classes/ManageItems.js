@@ -63,6 +63,14 @@ export class ItemDetailsForm extends Component {
                         });
                         console.log(res.status);
                         if (res.status == true) {
+                            let index = this.state.ItemsEdit.findIndex(x => x.uname === this.state.ItemToEdit);
+                            this.state.ItemsEdit[index].name = this.state.name;
+                            this.state.ItemsEdit[index].link = this.state.link;
+                            this.state.ItemsEdit[index].placeID = this.state.placeID;
+                            this.state.ItemsEdit[index].email = this.state.email;
+                            this.state.ItemsEdit[index].contact = this.state.contact;
+                            this.state.ItemsEdit[index].price = this.state.price;
+                            this.state.ItemsEdit[index].tags = this.state.tags;
                             this.setState({
                                 uname: "",
                                 name: "",

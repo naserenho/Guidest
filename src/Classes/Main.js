@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Featured, SingleFeature } from './Featured';
 import { Categories } from './Categories';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Clients } from './Clients';
+import Pagination from 'pagination-component';
 
 import "react-tabs/style/react-tabs.css";
 
@@ -13,7 +11,9 @@ export class Main extends Component {
         subcats: [],
         city: "All",
         items: [],
-        
+
+        pageIndex: 0,
+        pageSize: 10
     }
 
     changeCity = (e) => {
@@ -21,6 +21,10 @@ export class Main extends Component {
         if (e.target.value && this.state.subcategory) {
             this.fillItems(this.state.subcategory, e.target.value);
         }
+    }
+
+    changePageSize = (e) => {
+        this.setState({ pageSize: e.target.value, pageIndex: 0 });
     }
 
     handleCategory = (e) => {
@@ -47,9 +51,9 @@ export class Main extends Component {
                     subcats: r.Subcategories,
                     subcategory: r.Subcategories[0].uname,
                     icons: r.Subcategories[0].icon
-                    
+
                 });
-                
+
                 if (r.Subcategories[0].uname && this.state.city) {
                     this.fillItems(r.Subcategories[0].uname, this.state.city);
                 }
@@ -64,7 +68,7 @@ export class Main extends Component {
 
     handleSubcategory = (e) => {
         let subcat = e.currentTarget.dataset.id;
-        this.setState({ subcategory: subcat });
+        this.setState({ subcategory: subcat, pageIndex: 0 });
         if (subcat && this.state.city) {
             this.fillItems(subcat, this.state.city);
         }
@@ -141,7 +145,7 @@ export class Main extends Component {
 
             </section>
             {/* Do your magic for subcategories  */}
-            <div>
+            <div style={this.state.subcategory ? { display: "" } : { display: "None" }}>
                 <div className="row h-100">
                     <div className="col-2 side-subcat">
 
@@ -162,12 +166,35 @@ export class Main extends Component {
                     <div className="col-9 container mt-5">
                         <div className="row">
                             {
-                                this.state.items.length > 0 ? this.state.items.map((item, ind) => {
-                                    return <ListItem  subcatIcon={this.state.subcats[this.state.subcats.findIndex(x=> x.uname === this.state.subcategory)].icon} key={ind} obj={item} />
-                                }) : <div>No items yet in {this.state.subcategory} and {this.state.city}</div>
+                                this.state.items.length > 0 ? <div style={{display: "flex"}}>
+                                    <span >Page Size:</span>
+                                    <div>
+                                        <select value={this.state.pageSize} onChange={this.changePageSize}>
+                                            <option value="6">6</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                        </select>
+                                    </div>
+                                    <Pagination currentPage={this.state.pageIndex}
+                                    pageCount={Math.ceil(this.state.items.length / this.state.pageSize)}
+                                    pageLinkClassName="pageLink"
+                                    currentLinkClassName="currentLink"
+                                    onPageClick={i => {
+                                        this.setState({
+                                            pageIndex: i
+                                        });
+                                        //console.log(`Link to page ${i} was clicked.`);
+                                    }} /></div>
+                                    : null
                             }
-                       
-
+                        </div>
+                        <div className="row">
+                            {
+                                this.state.items.length > 0 ?
+                                    this.state.items.slice(this.state.pageIndex * this.state.pageSize, (this.state.pageIndex * this.state.pageSize) + this.state.pageSize).map((item, ind) => {
+                                        return <ListItem subcatIcon={this.state.subcats[this.state.subcats.findIndex(x => x.uname === this.state.subcategory)].icon} key={ind} obj={item} />
+                                    }) : <div>No items yet in {this.state.subcategory} and {this.state.city}</div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -218,63 +245,59 @@ class ListItem extends Component {
 
     render() {
         let tags = this.props.obj.tags.split(',');
-        console.log(tags);
-        return <div className="col-md-4"><div className="subcat-items">  
-        <div className="post-module hover border">
-            <div className="thumbnail">
-                <div className="poster-img" style={{backgroundImage:"url("+(this.state.photo)+")"}}>
-                <div className="subcategory">
-                    <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
-                       </div>
+        //console.log(tags);
+        return <div className="col-md-4"><div className="subcat-items">
+            <div className="post-module hover border">
+                <div className="thumbnail">
+                    <div className="poster-img" style={{ backgroundImage: "url(" + (this.state.photo) + ")" }}>
+                        <div className="subcategory">
+                            <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
+                            </div>
+                        </div>
+                        <div className="rating"><i className="fa fa-star"></i>  {this.state.result.rating}</div>
+                    </div>
                 </div>
-                <div className="rating"><i className="fa fa-star"></i>  {this.state.result.rating}</div> 
-            </div>
-            </div>
-                  
-            <div className="post-content">
-               
-                <h1 className="title">{this.props.obj.name}</h1>
-                <div className="description">
-                
+
+                <div className="post-content">
+
+                    <h1 className="title">{this.props.obj.name}</h1>
+                    <div className="description">
+
                         <span>{this.props.obj.city}</span>
                         <a href={this.state.result.url} className="item-location">
-                        <i className="fas fa-map-pin"></i> Location</a>
+                            <i className="fas fa-map-pin"></i> Location</a>
                         <div>
-                        {
+                            {
                                 tags.map((tag, i) => {
                                     let trimmedTag = tag.trim();
-                                    return <span data-tag={trimmedTag.replace(' ', '-')} className="items-tags">{tag}</span>
-                                    
+                                    return <span key={i} data-tag={trimmedTag.replace(' ', '-')} className="items-tags">{tag}</span>
+
                                 })
                             }
-
-
                         </div>
-                        
+                    </div>
+                    <hr />
+                    <button className="button">Show more</button>
+
 
                 </div>
-                 <hr/>
-                 <button className="button">Show more</button>
+            </div></div></div>
 
 
-            </div>
-        </div></div></div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // <div className="col-6 col-md-4">
         //     <div className="subcat-items">
         //         <img src={this.state.photo} alt="" />

@@ -2003,3 +2003,21 @@ white-space: nowrap;
         transform:rotate(360deg);
     }
 }
+
+.pageLink {
+    margin: 2px;
+    display: inline-block;
+    padding: 2px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+  .currentLink {
+    background-color: #0074c2;
+    color: #FFFFFF;
+  }
+  
+  .currentLink a:link { color: #FFFFFF; }
+  .currentLink a:visited { color: #FFFFFF; }
+  .currentLink a:active { color: #FFFFFF; }
