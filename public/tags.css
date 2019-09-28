@@ -1,38 +1,42 @@
 
 @import url('https://use.fontawesome.com/releases/v5.6.0/css/all.css');
-@font-face{
-    font-family:
-}
+
 .items-tags{
-    background-color: #a478b9;
+    background-color:white;
 
     margin: 3px;
     padding: 0px 5px;
-    color: white;
+    color: black !important;
     border-radius: 5px;
     display: inline-block;
+    border:1px solid  grey;
+
 
 }
 
 .items-tags::before{
     font-family:  'Font Awesome 5 Free' !important;
+    
+
 }
 
 [data-tag="Family"]{
-    background-color:#6dbf80 !important;
+    /* background-color:#6dbf80 !important; */
     position: relative;
+    
    
 }
 
 [data-tag="Family"]:before{
     content: '\f004';
     padding-right: 2px;
+    color: #6dbf80;
   
    
 }
 
 [data-tag="Free-wifi"]{
-    background-color:#15aabf !important;
+    /* background-color:#15aabf !important; */
     position: relative;
    
 }
@@ -47,20 +51,20 @@
 
 
 [data-tag="none-smoke"]{
-    background-color:#dc3545 !important;
+    /* background-color:#dc3545 !important; */
     position: relative;
     /* f54d */
 }
 
 [data-tag="valet-parking"]{
-    background-color:#d4a10a !important;
+    /* background-color:#d4a10a !important; */
     position: relative;
     
     /* \f1b9 */
 }
 
 [data-tag="smiles-offer"]{
-    background-color:#c8d92c !important;
+    /* background-color:#c8d92c !important; */
     position: relative;
     color: black;
     /* f295 */

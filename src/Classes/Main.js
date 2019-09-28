@@ -175,7 +175,7 @@ export class Main extends Component {
             </section>
             {/* Do your magic for subcategories  */}
             <div style={this.state.subcategory ? { display: "" } : { display: "None" }}>
-                <div className="row h-100">
+                <div className="row h-100" id="display-items">
                     <div className="col-md-2 side-subcat">
 
 
@@ -206,7 +206,7 @@ export class Main extends Component {
                           
                         </div>
                     </div>
-                    <div className="col-9 container mt-5">
+                    <div className="col-9 container m-5">
                         <div className="row">
                             {
                                 this.state.items.length > 0 ? <div style={{ display: "flex" }}>
@@ -296,7 +296,7 @@ class ListItem extends Component {
 
                         <div className="rating"><i className="fa fa-star"></i>  {this.state.result.rating}</div>
                         <div className="location"><a href={this.state.result.url}>
-                            <i className="fas fa-map-pin"></i> Location</a></div>
+                            <i className="fas fa-map-marked-alt"></i></a></div>
                     </div>
                 </div>
 
@@ -310,7 +310,7 @@ class ListItem extends Component {
 
                         <span>{this.props.obj.city}</span>
 
-                        <div>
+                        <div className="tags-holder">
                             {
                                 tags.map((tag, i) => {
                                     let trimmedTag = tag.trim();
@@ -320,8 +320,8 @@ class ListItem extends Component {
                             }
                         </div>
                     </div>
-                    <hr />
-                    <button className="button">Show more</button>
+                    {/* <hr />
+                    <button className="button">Show more</button> */}
 
 
                 </div>
