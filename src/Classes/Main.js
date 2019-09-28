@@ -152,7 +152,7 @@ export class Main extends Component {
             {/* Do your magic for subcategories  */}
             <div style={this.state.subcategory ? { display: "" } : { display: "None" }}>
                 <div className="row h-100">
-                    <div className="col-2 side-subcat">
+                    <div className="col-md-2 side-subcat">
 
                         <div><img className="side-subcat-img" src="img/subcats-img/dish.svg" />
                         </div>
@@ -171,7 +171,7 @@ export class Main extends Component {
                     <div className="col-9 container mt-5">
                         <div className="row">
                             {
-                                this.state.items.length > 0 ? <div style={{display: "flex"}}>
+                                this.state.items.length > 0 ? <div style={{ display: "flex" }}>
                                     <span >Page Size:</span>
                                     <div>
                                         <select value={this.state.pageSize} onChange={this.changePageSize}>
@@ -181,15 +181,15 @@ export class Main extends Component {
                                         </select>
                                     </div>
                                     <Pagination currentPage={this.state.pageIndex}
-                                    pageCount={Math.ceil(this.state.items.length / this.state.pageSize)}
-                                    pageLinkClassName="pageLink"
-                                    currentLinkClassName="currentLink"
-                                    onPageClick={i => {
-                                        this.setState({
-                                            pageIndex: i
-                                        });
-                                        //console.log(`Link to page ${i} was clicked.`);
-                                    }} /></div>
+                                        pageCount={Math.ceil(this.state.items.length / this.state.pageSize)}
+                                        pageLinkClassName="pageLink"
+                                        currentLinkClassName="currentLink"
+                                        onPageClick={i => {
+                                            this.setState({
+                                                pageIndex: i
+                                            });
+                                            //console.log(`Link to page ${i} was clicked.`);
+                                        }} /></div>
                                     : null
                             }
                         </div>
@@ -251,27 +251,28 @@ class ListItem extends Component {
 
     render() {
         let tags = this.props.obj.tags.split(',');
-        //console.log(tags);
+        console.log(tags);
         return <div className="col-md-4"><div className="subcat-items">
             <div className="post-module hover border">
                 <div className="thumbnail">
                     <div className="poster-img" style={{ backgroundImage: "url(" + (this.state.photo) + ")" }}>
-                        <div className="subcategory">
-                            <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
-                            </div>
-                        </div>
+
                         <div className="rating"><i className="fa fa-star"></i>  {this.state.result.rating}</div>
+                        <div className="location"><a href={this.state.result.url}>
+                            <i className="fas fa-map-pin"></i> Location</a></div>
                     </div>
                 </div>
 
                 <div className="post-content">
-
+                    <div className="subcategory">
+                        <div className="subcategory-img-item"><img src={"img/subcats-item-img/" + this.props.subcatIcon} />
+                        </div>
+                    </div>
                     <h1 className="title">{this.props.obj.name}</h1>
                     <div className="description">
 
                         <span>{this.props.obj.city}</span>
-                        <a href={this.state.result.url} className="item-location">
-                            <i className="fas fa-map-pin"></i> Location</a>
+
                         <div>
                             {
                                 tags.map((tag, i) => {
