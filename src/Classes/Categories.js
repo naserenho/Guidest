@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export class Categories extends Component {
 
     state = {
-        value: 0,
+        value: "",
         categories: []
     }
     componentDidMount() {
@@ -27,8 +27,9 @@ export class Categories extends Component {
         });
     }
     handleChange = (e) => {
+        let ind = this.state.categories.findIndex(x=> x.uname === e.currentTarget.dataset.id);
         this.setState({ value: e.currentTarget.dataset.id });
-        this.props.choose(e.currentTarget.dataset.id);
+        this.props.choose(this.state.categories[ind]);
     }
 
     render() {

@@ -6,12 +6,16 @@ import "react-tabs/style/react-tabs.css";
 
 export class Main extends Component {
     state = {
-        category: "",
+        category: {
+            uname: "",
+            name: "",
+            icon: ""
+        },
         subcategory: "",
         subcats: [],
         city: "All",
+        cats: [],
         items: [],
-
         pageIndex: 0,
         pageSize: 10
     }
@@ -29,15 +33,15 @@ export class Main extends Component {
 
     handleCategory = (e) => {
         this.setState({ category: e });
-        this.fillSubs(e);
+        this.fillSubs(e.uname);
     }
 
-    // handleSubcategory = (e) => {
-    //     this.setState({ subcategory: e.target.value });
-    //     if (e.target.value && this.state.city) {
-    //         this.fillItems(e.target.value, this.state.city);
-    //     }
-    // }
+    handleCategoryUname = (e) => {
+        let ind = this.state.cats.findIndex(x=> x.uname === e.target.value);
+        this.setState({ category: this.state.cats[ind] });
+        this.fillSubs(e.target.value);
+    }
+   
 
     fillSubs = (e) => {
         fetch('https://guidestae.herokuapp.com/subcats/get/' + e, {
@@ -92,13 +96,33 @@ export class Main extends Component {
         });
     }
 
+    componentDidMount() {
+        fetch('https://guidestae.herokuapp.com/cats/get', {
+            method: 'get',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then((res) => {
+            res.json().then(r => {
+                this.setState({
+                    cats: r.Categories
+                });
+                console.log(this.state);
+            }).catch(err => {
+                this.setState({
+                    loginstatus: false,
+                    showResultLogin: true
+                });
+            });
+        });
+    }
+
     render() {
         return <div>
             <section className="dorne-welcome-area">
                 <div className="container h-100">
                     <div className="row h-100 align-items-center justify-content-center">
                         <div className="col-12 col-md-10">
-
 
                             <div id="welcome-section" className="hero-content">
                                 <h4 className="p-4">Your best guide wherever you are! </h4>
@@ -149,9 +173,22 @@ export class Main extends Component {
                 <div className="row h-100">
                     <div className="col-md-2 side-subcat">
 
-                        <div><img className="side-subcat-img" src="img/subcats-img/dish.svg" />
+
+                        <div id="category-select-div" className="mb-3">
+                        <img src={"img/categories-img/"+this.state.category.icon}/> 
+                            <select value={this.state.category.uname} onChange={this.handleCategoryUname} className="custom-select category-select">
+                                {
+                                 
+                                    this.state.cats.map((cat, i) => {
+                                        return <option key={i} value={cat.uname}>{cat.name}</option>
+                                    })
+                                }
+                            </select>
                         </div>
+
+
                         <div className="side-subcat-inner">
+                           
                             {
                                 this.state.subcats.map((subcat, i) => {
                                     return <div className="mb-2 position-relative" key={i} data-id={subcat.uname} onClick={this.handleSubcategory.bind(this)}>
@@ -161,6 +198,7 @@ export class Main extends Component {
                                     </div>
                                 })
                             }
+                          
                         </div>
                     </div>
                     <div className="col-9 container mt-5">
@@ -245,7 +283,6 @@ class ListItem extends Component {
 
     render() {
         let tags = this.props.obj.tags.split(',');
-        console.log(tags);
         return <div className="col-md-4"><div className="subcat-items">
             <div className="post-module hover border">
                 <div className="thumbnail">
