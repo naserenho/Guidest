@@ -41,11 +41,11 @@ export class Main extends Component {
     }
 
     handleCategoryUname = (e) => {
-        let ind = this.state.cats.findIndex(x=> x.uname === e.target.value);
+        let ind = this.state.cats.findIndex(x => x.uname === e.target.value);
         this.setState({ category: this.state.cats[ind] });
         this.fillSubs(e.target.value);
     }
-   
+
 
     fillSubs = (e) => {
         fetch('https://guidestae.herokuapp.com/subcats/get/' + e, {
@@ -86,16 +86,18 @@ export class Main extends Component {
         let itemsDisplay = this.state.items.slice(i * this.state.pageSize, (i * this.state.pageSize) + this.state.pageSize);
         this.setState({
             pageIndex: i,
-            itemsDisplay: []
+            itemsDisplay: [],
+            loadingItems: true
         });
         setTimeout(
             function () {
                 this.setState({
-                    itemsDisplay: itemsDisplay
+                    itemsDisplay: itemsDisplay,
+                    loadingItems: false
                 });
             }
                 .bind(this),
-            1000
+            500
         );
     }
 
@@ -123,7 +125,7 @@ export class Main extends Component {
                         });
                     }
                         .bind(this),
-                    1000
+                    500
                 );
 
             }).catch(err => {
@@ -196,11 +198,11 @@ export class Main extends Component {
                     <div className="col-md-2 side-subcat">
 
 
-                    <div id="category-select-div" className="mb-3">
-                        <img src={"img/categories-img/"+this.state.category.icon}/> 
+                        <div id="category-select-div" className="mb-3">
+                            <img src={"img/categories-img/" + this.state.category.icon} />
                             <select value={this.state.category.uname} onChange={this.handleCategoryUname} className="custom-select category-select">
                                 {
-                                 
+
                                     this.state.cats.map((cat, i) => {
                                         return <option key={i} value={cat.uname}>{cat.name}</option>
                                     })

@@ -6,6 +6,7 @@
     "pagination-component": "^1.6.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-js-pagination": "^3.0.2",
     "react-responsive-carousel": "^3.1.50",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
