@@ -17,6 +17,7 @@ import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
 class App extends Component {
   state = {
+    city: "All",
 
     userInfo: {
       name: "",
@@ -40,6 +41,10 @@ class App extends Component {
     sessionStorage["role"] = obj.userRole;
   }
 
+  changeCity = (c) => {
+    this.setState({ city: c });
+  }
+
   loggedIn = () => {
     //console.log(this.state);
     if (sessionStorage["token"] != null && sessionStorage["token"] != undefined) {
@@ -53,6 +58,7 @@ class App extends Component {
   }
   Logout = () => {
     this.setState({
+
       userInfo: {
         name: "",
         email: "",
@@ -73,11 +79,12 @@ class App extends Component {
         <div id="preloader">
           <div className="dorne-load"></div>
         </div>
-        <Header loggedIn={this.loggedIn} logout={this.Logout} userInfo={this.state.userInfo} />
+        <Header loggedIn={this.loggedIn} logout={this.Logout} userInfo={this.state.userInfo}  />
 
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/oldmain" component={MainPage} />
+          <Route exact path="/" render={() => (
+            <Main changeCity={this.changeCity} city={this.state.city} />
+          )} />
           <Route path="/login" render={() => (
             !sessionStorage["token"] ? (
               <SignInRegister handleLogin={this.handleLogin} />
@@ -85,7 +92,6 @@ class App extends Component {
                 <Redirect to="/" />
               )
           )} />
-          <Route path="/listing/:category" component={Listing} />
           <Route exact path="/Items/Manage" render={() => (
             sessionStorage["role"] && sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? (
               <ItemDetailsForm token={sessionStorage["token"]} />

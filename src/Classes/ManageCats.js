@@ -29,8 +29,8 @@ export class CategoriesSubs extends Component {
     handleCatUnameChange = (e) => {
         this.setState({ selectedCat: e.target.value });
         if (this.state.FormType == "Edit") {
-            let category = this.state.cats.findIndex(x => x.uname === e.target.value);
-            this.setState({ category: this.state.cats[category] });
+            let ind = this.state.cats.findIndex(x => x.uname === e.target.value);
+            this.setState({ category: this.state.cats[ind] });
         }
         this.fillSubs(e.target.value);
     }
@@ -58,7 +58,6 @@ export class CategoriesSubs extends Component {
         this.setState({
             subcategory: temp
         });
-        console.log(temp);
     }
 
     AddUpdateCat = (event) => {

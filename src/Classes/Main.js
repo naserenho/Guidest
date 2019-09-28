@@ -11,9 +11,10 @@ export class Main extends Component {
         subcats: [],
         city: "All",
         items: [],
+        itemsDisplay: [],
 
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 6,
 
         loadingItems: false
     }
@@ -69,16 +70,36 @@ export class Main extends Component {
     }
 
     handleSubcategory = (e) => {
-
         let subcat = e.currentTarget.dataset.id;
         this.setState({ subcategory: subcat, pageIndex: 0, loadingItems: true });
         if (subcat && this.state.city) {
             this.fillItems(subcat, this.state.city);
         }
-        this.setState({ loadingItems: false });
+    }
+
+    changePageIndex = (i) => {
+        let itemsDisplay = this.state.items.slice(i * this.state.pageSize, (i * this.state.pageSize) + this.state.pageSize);
+        this.setState({
+            pageIndex: i,
+            itemsDisplay: []
+        });
+        setTimeout(
+            function () {
+                this.setState({
+                    itemsDisplay: itemsDisplay
+                });
+            }
+                .bind(this),
+            1000
+        );
     }
 
     fillItems = (e, t) => {
+        this.setState({
+            items: [],
+            itemsDisplay: [],
+            loadingItems: true
+        });
         fetch(`https://guidestae.herokuapp.com/items/get/${e}/${t}`, {
             method: 'get',
             headers: new Headers({
@@ -87,9 +108,19 @@ export class Main extends Component {
             })
         }).then((res) => {
             res.json().then(r => {
-                this.setState({
-                    items: r.items
-                });
+                setTimeout(
+                    function () {
+                        let itemsDisplay = r.items.slice(this.state.pageIndex * this.state.pageSize, (this.state.pageIndex * this.state.pageSize) + this.state.pageSize);
+                        this.setState({
+                            items: r.items,
+                            itemsDisplay: itemsDisplay,
+                            loadingItems: false
+                        });
+                    }
+                        .bind(this),
+                    1000
+                );
+
             }).catch(err => {
 
             });
@@ -103,8 +134,6 @@ export class Main extends Component {
                 <div className="container h-100">
                     <div className="row h-100 align-items-center justify-content-center">
                         <div className="col-12 col-md-10">
-
-
                             <div id="welcome-section" className="hero-content">
                                 <h4 className="p-4">Your best guide wherever you are! </h4>
                             </div>
@@ -123,21 +152,7 @@ export class Main extends Component {
                             </div>
                             <div className="main-categories">
                                 <Categories value={this.state.category} choose={this.handleCategory} />
-
                             </div>
-
-
-
-                            {/* <div className="hero-search-form">
-                        <div className="tab-content" id="nav-tabContent">
-                            <div className="tab-pane fade show active" id="nav-places" role="tabpanel" aria-labelledby="nav-places-tab">
-                                <h6>What are you looking for?</h6>
-                              <Search/>
-                            
-                            </div>
-                    
-                        </div>
-                    </div> */}
                         </div>
                     </div>
 
@@ -169,7 +184,21 @@ export class Main extends Component {
                         </div>
                     </div>
                     <div className="col-9 container mt-5">
+                        {loadingItems && <div style={{ top: "30px", position: "absolute", left: "50%", transform: "translateX(-50%)" }}><img className="side-subcat-img" src="img/loading.svg" /></div>}
                         <div className="row">
+                            <div>
+                                <select value={this.state.city} onChange={this.changeCity} className="custom-select">
+                                    <option value="All">Your Destinations</option>
+                                    <option value="AbuDhabi">Abu Dhabi</option>
+                                    <option value="AlAin">Al Ain</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Sharjah">Sharjah</option>
+                                    <option value="Ajman">Ajman</option>
+                                    <option value="UAQ">Umm Al Qiween</option>
+                                    <option value="RAK">Ras Al Khaimah</option>
+                                    <option value="FUJ">Al Fujairah</option>
+                                </select>
+                            </div>
                             {
                                 this.state.items.length > 0 ? <div style={{ display: "flex" }}>
                                     <span >Page Size:</span>
@@ -185,21 +214,17 @@ export class Main extends Component {
                                         pageLinkClassName="pageLink"
                                         currentLinkClassName="currentLink"
                                         onPageClick={i => {
-                                            this.setState({
-                                                pageIndex: i
-                                            });
-                                            //console.log(`Link to page ${i} was clicked.`);
+                                            this.changePageIndex(i)
                                         }} /></div>
                                     : null
                             }
                         </div>
                         <div className="row">
-                            { loadingItems && <i className="fa fa-refresh fa-spin" /> }
                             {
                                 this.state.items.length > 0 ?
-                                    this.state.items.slice(this.state.pageIndex * this.state.pageSize, (this.state.pageIndex * this.state.pageSize) + this.state.pageSize).map((item, ind) => {
+                                    this.state.itemsDisplay.map((item, ind) => {
                                         return <ListItem subcatIcon={this.state.subcats[this.state.subcats.findIndex(x => x.uname === this.state.subcategory)].icon} key={ind} obj={item} />
-                                    }) : <div>No items yet in {this.state.subcategory} and {this.state.city}</div>
+                                    }) : !loadingItems && <div style={{ textAlign: "center", fontSize: "24px", fontWeight: "bold" }}>No items yet to display in {this.state.subcategory} for city {this.state.city}</div>
                             }
                         </div>
                     </div>
@@ -225,12 +250,9 @@ class ListItem extends Component {
             const url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBB3rwynTACfkRD28Ld2TE7sTdsHIv8qJY&placeid=${this.props.obj.placeID}&fields=address_component,rating,adr_address,alt_id,formatted_address,geometry,icon,id,name,permanently_closed,photo,place_id,plus_code,scope,type,url,utc_offset,vicinity`;
             fetch(proxyurl + url, {
                 method: 'get',
-
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
-
-
                 })
             }).then((res) => {
                 res.json().then(r => {
@@ -251,7 +273,6 @@ class ListItem extends Component {
 
     render() {
         let tags = this.props.obj.tags.split(',');
-        console.log(tags);
         return <div className="col-md-4"><div className="subcat-items">
             <div className="post-module hover border">
                 <div className="thumbnail">
@@ -289,50 +310,6 @@ class ListItem extends Component {
 
                 </div>
             </div></div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // <div className="col-6 col-md-4">
-        //     <div className="subcat-items">
-        //         <img src={this.state.photo} alt="" />
-
-        //         <div className="price-start">
-        //             {/* this.state.result.photos[0].html_attributions[0] */}
-        //             <p><i className="fa fa-star"></i>  {this.state.result.rating}</p>
-        //         </div>
-
-        //         <div className="feature-content d-flex align-items-center justify-content-between">
-        //             <div className="feature-title">
-        //                 <h5>{this.props.obj.name}</h5>
-        //                 <p>{this.props.obj.city}</p>
-        //                 <p>{this.props.obj.tags}</p>
-        //                 {/* <p>{this.state.openingTimes}</p> */}
-
-
-
-        //                 <a href={this.state.result.url}><i className="fas fa-map-pin"></i> {this.state.result.formatted_address}</a>
-
-
-        //             </div>
-        //             <div className="feature-favourite">
-        //                 <a href="#"><i className="far fa-heart" aria-hidden="true"></i></a>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
     }
 
 }
