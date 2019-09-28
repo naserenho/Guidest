@@ -49,9 +49,12 @@ export const Info = (props) => {
                  " (Admin)" : (sessionStorage["role"] == "SuperAdmin" ? " (SuperAdmin)" : "")}
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {sessionStorage["role"] == "SuperAdmin" ? <Link to={`/Cats/Manage`}>
+                <div className="dropdown-item" href="#"> Manage Categories </div>
+                </Link> : null }
                 {sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? <Link to={`/Items/Manage`}>
                 <div className="dropdown-item" href="#"> Add/Edit Item </div>
-                </Link> : "" }
+                </Link> : null }
                 <a className="dropdown-item" href="#" onClick={props.logout}> Log Out </a>
             </div>
         </div>

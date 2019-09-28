@@ -7,6 +7,7 @@ import { Main } from './Classes/Main';
 import { SignInRegister } from './Classes/SignInRegister';
 import { Listing } from './Classes/Listing';
 import { ItemDetailsForm } from './Classes/ManageItems';
+import { CategoriesSubs } from './Classes/ManageCats';
 
 import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom';
 
@@ -59,7 +60,7 @@ class App extends Component {
         role: ""
       }
     });
-    
+
     sessionStorage["name"] = "";
     sessionStorage["email"] = "";
     sessionStorage["token"] = "";
@@ -87,17 +88,24 @@ class App extends Component {
           <Route path="/listing/:category" component={Listing} />
           <Route exact path="/Items/Manage" render={() => (
             sessionStorage["role"] && sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? (
-              <ItemDetailsForm token={sessionStorage["token"]} /> 
+              <ItemDetailsForm token={sessionStorage["token"]} />
             ) : (
-              <Redirect to="/" />
-            )
+                <Redirect to="/" />
+              )
+          )} />
+          <Route exact path="/Cats/Manage" render={() => (
+            sessionStorage["role"] && sessionStorage["role"] == "SuperAdmin" ? (
+              <CategoriesSubs token={sessionStorage["token"]} />
+            ) : (
+                <Redirect to="/" />
+              )
           )} />
           <Route exact path="/Users" render={() => (
             sessionStorage["role"] && sessionStorage["role"] == "Admin" || sessionStorage["role"] == "SuperAdmin" ? (
-              <ItemDetailsForm /> 
+              <ItemDetailsForm />
             ) : (
-              <Redirect to="/" />
-            )
+                <Redirect to="/" />
+              )
           )} />
         </Switch>
         <Footer />

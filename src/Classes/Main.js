@@ -13,7 +13,9 @@ export class Main extends Component {
         items: [],
 
         pageIndex: 0,
-        pageSize: 10
+        pageSize: 10,
+
+        loadingItems: false
     }
 
     changeCity = (e) => {
@@ -67,11 +69,13 @@ export class Main extends Component {
     }
 
     handleSubcategory = (e) => {
+
         let subcat = e.currentTarget.dataset.id;
-        this.setState({ subcategory: subcat, pageIndex: 0 });
+        this.setState({ subcategory: subcat, pageIndex: 0, loadingItems: true });
         if (subcat && this.state.city) {
             this.fillItems(subcat, this.state.city);
         }
+        this.setState({ loadingItems: false });
     }
 
     fillItems = (e, t) => {
@@ -93,6 +97,7 @@ export class Main extends Component {
     }
 
     render() {
+        const { loadingItems } = this.state;
         return <div>
             <section className="dorne-welcome-area">
                 <div className="container h-100">
@@ -189,6 +194,7 @@ export class Main extends Component {
                             }
                         </div>
                         <div className="row">
+                            { loadingItems && <i className="fa fa-refresh fa-spin" /> }
                             {
                                 this.state.items.length > 0 ?
                                     this.state.items.slice(this.state.pageIndex * this.state.pageSize, (this.state.pageIndex * this.state.pageSize) + this.state.pageSize).map((item, ind) => {

@@ -16,7 +16,9 @@ export class SignInRegister extends Component {
         showResult: false,
         showResultLogin: false,
 
-        redirect: false
+        redirect: false,
+        loadingLogin: false,
+        loadingRegister: false
     }
 
     setRedirect = () => {
@@ -32,6 +34,7 @@ export class SignInRegister extends Component {
     }
 
     login = (event) => {
+        this.setState({ loadingLogin: true });
         fetch('https://guidestae.herokuapp.com/users/login', {
             method: 'post',
             headers: new Headers({
@@ -69,9 +72,11 @@ export class SignInRegister extends Component {
             });
         });
         event.preventDefault();
+        //this.setState({ loadingLogin: false });
     }
 
     register = (event) => {
+        this.setState({ loadingRegister: true });
         fetch('https://guidestae.herokuapp.com/users/register', {
             method: 'post',
             headers: new Headers({
@@ -114,6 +119,7 @@ export class SignInRegister extends Component {
             });
         });
         event.preventDefault();
+        //this.setState({ loadingRegister: false });
     }
 
     handleChange = (e) => {
@@ -121,6 +127,8 @@ export class SignInRegister extends Component {
     }
 
     render() {
+        const { loadingLogin } = this.state;
+        const { loadingRegister } = this.state;
         return <div>
             {this.renderRedirect()}
             <section className="bg-overlay" style={{ paddingTop: "130px", backgroundImage: "url(img/bg-img/hero-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -131,7 +139,7 @@ export class SignInRegister extends Component {
                             <form onSubmit={this.login}>
                                 <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
                                 <input className="input-control mb-2" type="password" placeholder="Password" name="loginpassword" value={this.state.loginpassword} onChange={this.handleChange} />
-                                <input className="input-control mb-2" type="submit" value="Login" style={{ backgroundColor: "#3c0ea5", color: "white", border: 0 }} />
+                                <input className="input-control mb-2" type="submit" value="Login" disabled={loadingLogin} style={{ backgroundColor: "#3c0ea5", color: "white", border: 0 }} />
                             </form>
                             {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : ""}
                         </div>
@@ -144,7 +152,7 @@ export class SignInRegister extends Component {
                                 <br />
                                 <input className="input-control mb-2" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
                                 <br />
-                                <input className="input-control mb-2" type="submit" value="Register" style={{ backgroundColor: "#da4444", color: "white", border: 0 }} />
+                                <input className="input-control mb-2" type="submit" value="Register" disabled={loadingRegister} style={{ backgroundColor: "#da4444", color: "white", border: 0 }} />
                             </form>
                             {this.state.showResult ? <RegisterInfo status={this.state.status} name={this.state.name} message={this.state.message} /> : ""}
                             <br /><br />
