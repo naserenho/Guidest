@@ -37,9 +37,9 @@ export class Categories extends Component {
             {
                 this.state.categories.map((category, i) => {
                     return <div className="main-category col-6 col-md-2 border" key={i} onClick={this.handleChange.bind(this)} data-id={category.uname}>
-                        <div>
+                        <a href="#display-items" style={{display:"block"}}>
                             <img src={"img/categories-img/" + category.icon} width="60px" />
-                        </div><p>{category.name}</p></div>
+                        </a><p>{category.name}</p></div>
                 })
                 
             }

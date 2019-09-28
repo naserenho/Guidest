@@ -352,12 +352,21 @@ color: black;
    
 }
 
+.tags-holder{
+    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom:25px;
+}
+
 .main-categories .main-category:hover{
    
         box-shadow: 0 5px 15px 2px rgba(0, 0, 0, 0.1);
         background: #c1bbe8;
 
 }
+
 
 /* .bg-overlay:after,
 .bg-overlay-9:after {
@@ -2071,3 +2080,5 @@ white-space: nowrap;
   .fa-star{
       color: #ffcc34 !important;
   }
+
+  #display-items{ width:100%;}
