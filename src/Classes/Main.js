@@ -6,10 +6,15 @@ import "react-tabs/style/react-tabs.css";
 
 export class Main extends Component {
     state = {
-        category: "",
+        category: {
+            uname: "",
+            name: "",
+            icon: ""
+        },
         subcategory: "",
         subcats: [],
         city: "All",
+        cats: [],
         items: [],
         itemsDisplay: [],
 
@@ -20,27 +25,27 @@ export class Main extends Component {
     }
 
     changeCity = (e) => {
-        this.setState({ city: e.target.value });
+        this.setState({ city: e.target.value, loadingItems: true });
         if (e.target.value && this.state.subcategory) {
             this.fillItems(this.state.subcategory, e.target.value);
         }
     }
 
     changePageSize = (e) => {
-        this.setState({ pageSize: e.target.value, pageIndex: 0 });
+        this.setState({ pageSize: e.target.value, pageIndex: 0, loadingItems: true });
     }
 
     handleCategory = (e) => {
-        this.setState({ category: e });
-        this.fillSubs(e);
+        this.setState({ category: e, loadingItems: true });
+        this.fillSubs(e.uname);
     }
 
-    // handleSubcategory = (e) => {
-    //     this.setState({ subcategory: e.target.value });
-    //     if (e.target.value && this.state.city) {
-    //         this.fillItems(e.target.value, this.state.city);
-    //     }
-    // }
+    handleCategoryUname = (e) => {
+        let ind = this.state.cats.findIndex(x=> x.uname === e.target.value);
+        this.setState({ category: this.state.cats[ind] });
+        this.fillSubs(e.target.value);
+    }
+   
 
     fillSubs = (e) => {
         fetch('https://guidestae.herokuapp.com/subcats/get/' + e, {
@@ -127,6 +132,27 @@ export class Main extends Component {
         });
     }
 
+    componentDidMount() {
+        fetch('https://guidestae.herokuapp.com/cats/get', {
+            method: 'get',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then((res) => {
+            res.json().then(r => {
+                this.setState({
+                    cats: r.Categories
+                });
+                console.log(this.state);
+            }).catch(err => {
+                this.setState({
+                    loginstatus: false,
+                    showResultLogin: true
+                });
+            });
+        });
+    }
+
     render() {
         const { loadingItems } = this.state;
         return <div>
@@ -169,9 +195,22 @@ export class Main extends Component {
                 <div className="row h-100">
                     <div className="col-md-2 side-subcat">
 
-                        <div><img className="side-subcat-img" src="img/subcats-img/dish.svg" />
+
+                    <div id="category-select-div" className="mb-3">
+                        <img src={"img/categories-img/"+this.state.category.icon}/> 
+                            <select value={this.state.category.uname} onChange={this.handleCategoryUname} className="custom-select category-select">
+                                {
+                                 
+                                    this.state.cats.map((cat, i) => {
+                                        return <option key={i} value={cat.uname}>{cat.name}</option>
+                                    })
+                                }
+                            </select>
                         </div>
+
+
                         <div className="side-subcat-inner">
+
                             {
                                 this.state.subcats.map((subcat, i) => {
                                     return <div className="mb-2 position-relative" key={i} data-id={subcat.uname} onClick={this.handleSubcategory.bind(this)}>
@@ -181,6 +220,7 @@ export class Main extends Component {
                                     </div>
                                 })
                             }
+
                         </div>
                     </div>
                     <div className="col-9 container mt-5">
