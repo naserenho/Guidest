@@ -33,6 +33,7 @@ export class Main extends Component {
 
     changePageSize = (e) => {
         this.setState({ pageSize: e.target.value, pageIndex: 0, loadingItems: true });
+        this.fillItems(this.state.subcategory, this.state.city);
     }
 
     handleCategory = (e) => {
@@ -59,7 +60,6 @@ export class Main extends Component {
                     subcats: r.Subcategories,
                     subcategory: r.Subcategories[0].uname,
                     icons: r.Subcategories[0].icon
-
                 });
 
                 if (r.Subcategories[0].uname && this.state.city) {
@@ -145,7 +145,6 @@ export class Main extends Component {
                 this.setState({
                     cats: r.Categories
                 });
-                console.log(this.state);
             }).catch(err => {
                 this.setState({
                     loginstatus: false,
