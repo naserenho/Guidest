@@ -1,44 +1,24 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Guidest project
+Guidest.ae is a website/platform that gathers up everything in the UAE that is related to living in it, whether it is houses, schools, activities, jobs and more. It is custom made to gather up everything trending in the UAE from apps to shops to websites to events, to help spread the knowledge to lead a better life.  In other words, it's *Your local life guide*.
 
-In the project directory, you can run:
+### Website details:
+There are currently 10 main categories, and is expanding to include other categories. Each category has subcategories under it that has it's own items in each city or generic items for all cities (like apps and websites).
 
-### `npm start`
+### Advantages:
+-   Increase in the activity and economy of the country
+-   Increase in the amount of tourists to the uae
+-   Increase the chances of people travelling to the uae to settle by having all the required knowledge to live in the uae
+-   A new unified platform that every entity in the uae can target to do their advertisements there
+-   Discover uncommon underrated places through the website that gives a better chance for new businesses to rise
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Upcoming updates
+- Arabic Support
+- Add favorite items list customized for users
+- Filter by tags, Search by name, Sort by name, type
+- Add AI Chatbot to help find items based on natural language (Where to go, what to do, etc...)
+- Add personalized list of events for the user to record the trips they made, and show possible analytics of the trips made per month/year
+- Add a map view of the items showing in the current list
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Competition
+This project was intended to be submitted to the [1mac competition](https://www.arabcoders.ae/news/5) that is due on 30th September
