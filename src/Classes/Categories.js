@@ -43,10 +43,7 @@ export class Categories extends Component {
                 })
                 
             }
-            <div className="bounce"><img src="img/bg-img/car.svg"/>
-            <img className="wheel"src="img/bg-img/wheel.svg"/>
-            <img className="wheel"src="img/bg-img/wheel.svg"/>
-            </div>
+            
         </div>
     }
 }

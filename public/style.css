@@ -1506,7 +1506,7 @@ object-fit: cover;
 
 .wheel{
 position: absolute;
-bottom:-95px;
+bottom:45px;
 left: 68.5%;
 width: 22px;
 animation-name: spin;

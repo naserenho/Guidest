@@ -183,6 +183,10 @@ export class Main extends Component {
                         </div>
                     </div>
 
+                    <div className="bounce"><img src="img/bg-img/car.svg"/>
+            <img className="wheel"src="img/bg-img/wheel.svg"/>
+            <img className="wheel"src="img/bg-img/wheel.svg"/>
+            </div>
                     <div className="sky">
 
                         <div className="clouds_two"></div>
