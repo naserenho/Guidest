@@ -195,10 +195,11 @@ export class Main extends Component {
                 </div>
 
             </section>
+            <div id="break"></div>
             {/* Do your magic for subcategories  */}
             <div style={this.state.subcategory ? { display: "" } : { display: "None" }}>
                 <div className="row h-100" id="display-items">
-                    <div className="col-md-2 side-subcat">
+                    <div className="col-12 col-md-2 side-subcat">
 
 
                         <div id="category-select-div" className="mb-3">
@@ -218,7 +219,7 @@ export class Main extends Component {
 
                             {
                                 this.state.subcats.map((subcat, i) => {
-                                    return <div className="mb-2 position-relative" key={i} data-id={subcat.uname} onClick={this.handleSubcategory.bind(this)}>
+                                    return <div className="mb-2 position-relative subcats" key={i} data-id={subcat.uname} onClick={this.handleSubcategory.bind(this)}>
                                         <span className={"side-subcat-circle circle spin" + (this.state.subcategory == subcat.uname ? " ColoredSubCat" : "")}> <img src={"img/subcats-item-img/" + subcat.icon} /></span>
 
                                         <p className="mt-3">{subcat.name}</p>
@@ -230,9 +231,13 @@ export class Main extends Component {
                     </div>
                     <div className="col-9 container mt-5">
                         {loadingItems && <div style={{ top: "30px", position: "absolute", left: "50%", transform: "translateX(-50%)" }}><img className="side-subcat-img" src="img/loading.svg" /></div>}
-                        <div className="row">
-                            {/* <div>
-                                <select value={this.state.city} onChange={this.changeCity} className="custom-select">
+                        <div>
+                           
+                            {
+                                
+                                this.state.items.length > 0 ? <div className="row">
+                                     <div className="col-12 col-md-3">
+                                <select id="destination-select" value={this.state.city} onChange={this.changeCity} className="custom-select">
                                     <option value="All">Your Destinations</option>
                                     <option value="AbuDhabi">Abu Dhabi</option>
                                     <option value="AlAin">Al Ain</option>
@@ -243,11 +248,10 @@ export class Main extends Component {
                                     <option value="RAK">Ras Al Khaimah</option>
                                     <option value="FUJ">Al Fujairah</option>
                                 </select>
-                            </div> */}
-                            {
-                                this.state.items.length > 0 ? <div style={{ display: "flex" }}>
-                                    <span style={{padding: "5px", height:"fit-content"}}>Page Size:</span>
-                                    <div>
+                            </div>
+                            <div  className="col-12 col-md-4">
+                                    <span id="page-size-span" style={{padding: "5px", height:"fit-content"}}>Page Size:</span>
+                                   
                                         <select id="page-size-select" className="custom-select mr-3"value={this.state.pageSize} onChange={this.changePageSize}>
                                             <option value="6">6</option>
                                             <option value="10">10</option>

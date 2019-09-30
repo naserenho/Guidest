@@ -36,7 +36,7 @@ export class Categories extends Component {
         return <div className="row" style={{ justifyContent: "center" }}>
             {
                 this.state.categories.map((category, i) => {
-                    return <a href="#display-items"  className="main-category col-6 col-md-2 border" key={i} onClick={this.handleChange.bind(this)} data-id={category.uname}>
+                    return <a href="#break"  className="main-category col-6 col-md-2 border" key={i} onClick={this.handleChange.bind(this)} data-id={category.uname}>
                         
                             <img src={"img/categories-img/" + category.icon} width="60px" />
                         <p>{category.name}</p></a>

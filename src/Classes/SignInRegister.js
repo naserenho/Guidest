@@ -131,35 +131,49 @@ export class SignInRegister extends Component {
         const { loadingRegister } = this.state;
         return <div>
             {this.renderRedirect()}
-            <section className="bg-overlay" style={{ paddingTop: "130px", backgroundImage: "url(img/bg-img/hero-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}>
-                <div className="row m-0 align-items-center justify-content-center" >
-                    <div className="col-12 col-md-5">
-                        <div id="login-form" className="px-5">
-                            <p className="text-white">Existing User</p>
+            <section className="bg-overlay">
+            <div className="col-12 col-md-10 container" id="forms-holder"> 
+           
+                <div className="row m-0 align-items-center justify-content-center" style={{padding: "50px 0 40px 0"}}>
+                 
+                    <div className="col-12 col-md-5 m-auto">
+                        <div id="login-form" >
+                        <img src="img/bg-img/user-login.svg" style={{width: "50px",display: "block",margin: "auto"}}/>
+
+                            <h4 className="text-center p-1">Existing User</h4>
                             <form onSubmit={this.login}>
                                 <input className="input-control mb-2" type="email" placeholder="Email" name="loginemail" value={this.state.loginemail} onChange={this.handleChange} />
                                 <input className="input-control mb-2" type="password" placeholder="Password" name="loginpassword" value={this.state.loginpassword} onChange={this.handleChange} />
-                                <input className="input-control mb-2" type="submit" value="Login" disabled={loadingLogin} style={{ backgroundColor: "#3c0ea5", color: "white", border: 0 }} />
+                                <input className="input-control mb-2" type="submit" value="Login" disabled={loadingLogin} style={{ fontSize:"14px",backgroundColor: "#643f9e", color: "white", border: 0 }} />
                             </form>
                             {this.state.showResultLogin ? <Info status={this.state.loginstatus} name={this.state.loginname} token={this.state.token} /> : ""}
                         </div>
-                        <div id="registration-form" className="px-5 mt-3" >
-                            <p className="text-white">New User?</p>
+                        </div>
+                        
+                    <div className="col-12 col-md-5 m-auto">
+                    <div id="registration-form" >
+                    <img src="img/bg-img/user.svg" style={{width: "50px",display: "block",margin: "auto"}}/>
+                            <h4 className="text-center p-1">New User?</h4>
                             <form onSubmit={this.register}>
                                 <input className="input-control mb-2" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
-                                <br />
+                              
                                 <input className="input-control mb-2" type="text" name="name" placeholder="Username" value={this.state.name} onChange={this.handleChange} />
-                                <br />
+                              
                                 <input className="input-control mb-2" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
-                                <br />
-                                <input className="input-control mb-2" type="submit" value="Register" disabled={loadingRegister} style={{ backgroundColor: "#da4444", color: "white", border: 0 }} />
+                               
+                                <input className="input-control mb-2" type="submit" value="Register" disabled={loadingRegister} style={{ fontSize:"14px",backgroundColor: "#ff485a", color: "white", border: 0 }} />
                             </form>
                             {this.state.showResult ? <RegisterInfo status={this.state.status} name={this.state.name} message={this.state.message} /> : ""}
                             <br /><br />
+                       
                         </div>
                     </div>
+
+</div>
+
                 </div>
             </section>
+            
         </div>
     }
 }

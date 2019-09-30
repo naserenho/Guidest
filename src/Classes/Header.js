@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 export class Header extends Component {
 
     render() {
-        return <header className="header_area" id="header">
+        return <div id="header-wrapper"><header className="header_area" id="header">
             <div className="container-fluid h-100">
                 <div className="row h-100">
                     <div className="col-12 h-100">
                         <nav className="h-100 navbar navbar-expand-lg">
-                            <Link to={`/`}><div className="navbar-brand"> <img src="img/logo-img/guidest-logo.svg" width={'170px'} alt="" />
+                            <Link to={`/`}><div className="navbar-brand"> <img src="img/logo-img/guidest-logo.svg" width={'150px'} alt="" />
                             </div></Link>
                             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation"><span className="fa fa-bars"></span></button>
 
@@ -19,7 +19,7 @@ export class Header extends Component {
                                 <ul className="navbar-nav mr-auto" id="dorneMenu">
 
                                 </ul>
-                                {/* <Search/> */}
+                                
                                 <div className="dorne-add-listings-btn mx-2"  >
                                     {sessionStorage["token"] && sessionStorage["token"] ?
                                         <Info logout={this.props.logout} userInfo={this.props.userInfo} /> :
@@ -36,6 +36,7 @@ export class Header extends Component {
                 </div>
             </div>
         </header>
+        </div>
     }
 
 }
