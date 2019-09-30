@@ -1,6 +1,6 @@
 
 ## Guidest project
-Guidest.ae is a website is custom made to gather up everything in the UAE that is related to living in it, whether it is houses, schools, activities, jobs or more, which helps in spreading the knowledge to lead a better life.  In other words, it's *Your local life guide*.
+Guidest.ae is a website that is custom made to gather up everything in the UAE that is related to living in it, whether it is houses, schools, activities, jobs or more, which helps in spreading the knowledge to lead a better life.  In other words, it's *Your local life guide*.
 
 #### [Introductory video to Guidest](https://youtu.be/urfYod-EPhI)
 
