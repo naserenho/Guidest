@@ -2,8 +2,14 @@
 ## Guidest project
 Guidest.ae is a website is custom made to gather up everything in the UAE that is related to living in it, whether it is houses, schools, activities, jobs or more, which helps in spreading the knowledge to lead a better life.  In other words, it's *Your local life guide*.
 
+#### [Introductory video to Guidest](https://youtu.be/urfYod-EPhI)
+
+
 ### Website details:
 There are currently 10 main categories, and is expanding to include other categories. Each category has subcategories under it that has it's own items in each city or generic items for all cities (like apps and websites).
+The project is build using React JS, and is connected to a mongoose database that displays everything dynamic.
+There is an admin system implemented for managing categories, subcategories, and the items inserted through the website.
+Google Places API is used to retrieve information about places on ground like photos, reviews, contact and more.
 
 ### Advantages:
 -   Increase in the activity and economy of the country
