@@ -61,26 +61,37 @@ export class ItemDetailsForm extends Component {
                             status: res.status,
                             showResult: true
                         });
-                        console.log(res.status);
+                        //console.log(res.status);
                         if (res.status == true) {
-                            let index = this.state.ItemsEdit.findIndex(x => x.uname === this.state.ItemToEdit);
-                            this.state.ItemsEdit[index].name = this.state.name;
-                            this.state.ItemsEdit[index].link = this.state.link;
-                            this.state.ItemsEdit[index].placeID = this.state.placeID;
-                            this.state.ItemsEdit[index].email = this.state.email;
-                            this.state.ItemsEdit[index].contact = this.state.contact;
-                            this.state.ItemsEdit[index].price = this.state.price;
-                            this.state.ItemsEdit[index].tags = this.state.tags;
-                            this.setState({
-                                uname: "",
-                                name: "",
-                                link: "",
-                                placeID: "",
-                                email: "",
-                                contact: "",
-                                price: "",
-                                tags: ""
+                            let items = this.state.ItemsEdit;
+                            items.append({
+                                uname: this.state.uname,
+                                name: this.state.name,
+                                type: this.state.type,
+                                link: this.state.link,
+                                placeID: this.state.placeID,
+                                city: this.state.city,
+                                subcat: this.state.subcat,
+                                tags: this.state.tags,
+                                email: this.state.email,
+                                contact: this.state.contact,
+                                price: this.state.price
                             });
+                            this.setState({
+                                ItemsEdit: items
+                            });
+                            this.emptyForm();
+                            setTimeout(
+                                function () {
+                                    this.setState({
+                                        message: "",
+                                        status: "",
+                                        showResult: false
+                                    });
+                                }
+                                    .bind(this),
+                                4000
+                            );
                         }
                     }
                 }).catch(err => {
@@ -95,6 +106,17 @@ export class ItemDetailsForm extends Component {
                     status: false,
                     showResult: true
                 });
+                setTimeout(
+                    function () {
+                        this.setState({
+                            message: "",
+                            status: "",
+                            showResult: false
+                        });
+                    }
+                        .bind(this),
+                    4000
+                );
             });
         } else if (this.state.FormType == "Edit") {
             fetch('https://guidestae.herokuapp.com/items/update', {
@@ -124,9 +146,34 @@ export class ItemDetailsForm extends Component {
                             status: res.status,
                             showResult: true
                         });
-                        console.log(res.status);
+                        //console.log(res.status);
                         if (res.status == true) {
-                            this.emptyForm();
+                            let temp = this.state.ItemsEdit;
+                            let index = temp.findIndex(x => x.uname === this.state.ItemToEdit);
+                            let item = temp[index];
+                            item.name = this.state.name;
+                            item.link = this.state.link;
+                            item.placeID = this.state.placeID;
+                            item.email = this.state.email;
+                            item.contact = this.state.contact;
+                            item.price = this.state.price;
+                            item.tags = this.state.tags;
+                            temp[index] = item;
+                            this.setState({
+                                ItemsEdit: temp
+                            });
+                            setTimeout(
+                                function () {
+                                    this.setState({
+                                        message: "",
+                                        status: "",
+                                        showResult: false
+                                    });
+                                }
+                                    .bind(this),
+                                4000
+                            );
+                            //this.emptyForm();
                         }
                     }
                 }).catch(err => {
@@ -141,6 +188,17 @@ export class ItemDetailsForm extends Component {
                     status: false,
                     showResult: true
                 });
+                setTimeout(
+                    function () {
+                        this.setState({
+                            message: "",
+                            status: "",
+                            showResult: false
+                        });
+                    }
+                        .bind(this),
+                    4000
+                );
             });
         }
         event.preventDefault();
@@ -195,6 +253,7 @@ export class ItemDetailsForm extends Component {
         //GET index of item from uname
         let index = this.state.ItemsEdit.findIndex(x => x.uname === e.target.value);
         this.fillFormItem(this.state.ItemsEdit[index]);
+        console.log(this.state.ItemsEdit[index]);
     }
 
     fillSubs = (e) => {
@@ -255,7 +314,6 @@ export class ItemDetailsForm extends Component {
     }
 
     fillFormItem = (itemDetails) => {
-        // console.log(itemDetails);
         this.setState({
             uname: itemDetails.uname,
             name: itemDetails.name,
@@ -393,17 +451,9 @@ export class ItemDetailsForm extends Component {
     }
 }
 
-export const Info = (props) => {
-    return <div>
-        <span style={{ color: props.status ? "green" : "red" }}>{props.status ? "Login Successful" : "Failed to Login"}</span>
-        {props.status ? <h3>Welcome User {props.name}</h3> : ""}
-        {/* {props.status ? <h3>Your token {props.token}</h3> : "" } */}
-    </div>
-}
-
 const AddInfo = (props) => {
     return <div>
-        <span style={{ color: props.status ? "green" : "red", fontSize: "25px" }}>{props.message}</span>
+        <span style={{ fontSize: "35px", fontWeight: "bold", color: props.status ? "#a3ffa3" : "red" }}>{props.message}</span>
     </div>
 }
 
