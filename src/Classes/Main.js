@@ -325,6 +325,7 @@ class ListItem extends Component {
                             <i className="fas fa-map-marked-alt"></i></a></div>
                     </div>
                 </div>
+               
 
                 <div className="post-content">
                     <div className="subcategory">

@@ -1,10 +1,18 @@
 
 @import url('https://use.fontawesome.com/releases/v5.6.0/css/all.css');
 
+.tags-holder{
+  
+    height: 140px;
+    overflow-y: auto;
+    padding-bottom:25px;
+    /* cursor: grab; */
+    width: 100%;
+}
 .items-tags{
     background-color:white;
 
-    margin: 3px;
+    margin: 2px;
     padding: 0px 5px;
     color: black !important;
     border-radius: 5px;
