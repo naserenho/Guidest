@@ -231,7 +231,7 @@ export class Main extends Component {
                     <div className="col-9 container mt-5">
                         {loadingItems && <div style={{ top: "30px", position: "absolute", left: "50%", transform: "translateX(-50%)" }}><img className="side-subcat-img" src="img/loading.svg" /></div>}
                         <div className="row">
-                            <div>
+                            {/* <div>
                                 <select value={this.state.city} onChange={this.changeCity} className="custom-select">
                                     <option value="All">Your Destinations</option>
                                     <option value="AbuDhabi">Abu Dhabi</option>
@@ -243,12 +243,12 @@ export class Main extends Component {
                                     <option value="RAK">Ras Al Khaimah</option>
                                     <option value="FUJ">Al Fujairah</option>
                                 </select>
-                            </div>
+                            </div> */}
                             {
                                 this.state.items.length > 0 ? <div style={{ display: "flex" }}>
-                                    <span >Page Size:</span>
+                                    <span style={{padding: "5px", height:"fit-content"}}>Page Size:</span>
                                     <div>
-                                        <select value={this.state.pageSize} onChange={this.changePageSize}>
+                                        <select id="page-size-select" className="custom-select mr-3"value={this.state.pageSize} onChange={this.changePageSize}>
                                             <option value="6">6</option>
                                             <option value="10">10</option>
                                             <option value="20">20</option>
